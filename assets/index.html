@@ -1,13 +1,174 @@
 <!DOCTYPE html>
+<!--
+<!DOCTYPE html> — объявление типа документа, указывающее браузеру, что страница
+написана на HTML5
+-->
 <html lang="ru">
+<!--
+Тег <html> — это корневой элемент HTML-документа, внутри которого размещается
+весь контент страницы (заголовок, метаданные, тело).
+-->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+Тег <head> — это контейнер для метаданных HTML-документа, который содержит
+служебную информацию для браузеров и поисковых систем, но не отображается
+напрямую на странице.
+-->
+    <meta charset="utf-8">
+    <!--
+    <meta charset="utf-8"> — это обязательный метатег, который указывает
+    браузеру кодировку символов HTML-страницы. Он гарантирует корректное
+    отображение текста, включая спецсимволы и кириллицу.
+    -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <!--
+    <meta name="viewport"> — это метатег, который контролирует адаптивное
+    отображение сайта на мобильных устройствах. Без него страница может
+    неправильно масштабироваться на маленьких экранах.
+    1. Адаптивный дизайн
+    Тег сообщает браузеру, что ширина страницы должна соответствовать ширине
+    экрана устройства (width=device-width), а не имитировать десктопный вид.
+    2. Запрет нежелательного масштабирования
+    Параметр initial-scale=1.0 устанавливает масштаб 100% при первой загрузке.
+    -->
     <title>Сервер изображений</title>
     <link rel="stylesheet" href="style.css">
+    <!--
+    Тег <link rel="stylesheet" href="style.css"> подключает внешний CSS-файл к
+    HTML-документу, чтобы стилизовать его содержимое.
+    rel="stylesheet" — указывает, что это таблица стилей.
+    href="style.css" — путь к CSS-файлу (относительный или абсолютный).
+    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!--
+    Подключение Font Awesome для загрузки иконок
+    -->
 </head>
-<body>
-    <p>Hello, world!</p>
-</body>
+    <body>
+    <!--
+    Тег <body> — это контейнер для всего видимого содержимого веб-страницы.
+    Всё, что находится внутри него, отображается в браузере.
+    -->
+        <section id="hero-page" class="hero-page">
+        <!--
+        <section></section> — это HTML-тег, который создаёт смысловой раздел
+        на веб-странице.Группирует связанный контент (например, блок новостей,
+        галерею, контактную форму). Имеет семантическое значение (улучшает SEO
+        и доступность для скринридеров).
+        -->
+              <div class="hero-content">
+              <!--
+              Это универсальный HTML-тег-контейнер, который используется для
+              группировки элементов и применения стилей или скриптов.
+              -->
+                  <h2 class="hero-title">Upload Photos</h2>
+                  <p class="hero-subtitle">Upload selfies, mems, or any fun pictures here</p>
+                  <button id="goto-app-button" class="hero-button">TAIL-ENT SHOWCASE</button>
+              </div>
+        </section>
+
+        <main id="main-app-page" class="main-app hidden">
+        <!--
+        Это семантический тег, который обозначает основное содержимое страницы
+        (уникальный контент, не включающий повторяющиеся элементы, такие как
+        шапка, подвал или боковая панель).
+        -->
+            <div class="app-container">
+                <header class="app-header">
+                <!--
+                Тег <header></header> — это семантический HTML-элемент,
+                который представляет собой шапку (верхнюю часть) страницы
+                или раздела.
+                -->
+                    <h1 class="app-title">Upload Photos</h1>
+                    <p class="app-subtitle">Upload selfies, memes, or any fun pictures here.</p>
+                </header>
+                <nav class="app-nav">
+                <!--
+                Тег <nav> — это семантический HTML-элемент для основной
+                навигации по сайту.
+                Основное назначение:
+                Обёртка для главного меню сайта
+                Группировка навигационных ссылок (ссылки на разделы, соцсети, поиск)
+                Важен для SEO и доступности (скринридеры распознают навигацию)
+                -->
+                    <button data-view="upload" class="app-nav__button active">Upload</button>
+                    <!--
+                    data-view="upload" Кнопка связана с разделом/вкладкой «Upload».
+                    JavaScript может использовать это значение для переключения
+                    между разделами интерфейса.
+                    -->
+                    <button data-view="images" class="app-nav__button">Images</button>
+                </nav>
+                <div id="app-views">
+                    <div id="upload-view">
+                        <div id="upload-drop-zone" class="upload-drop-zone">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <!--
+                            <i> - исторически использовался для курсива, сейчас
+                            часто применяется для иконок
+                            fas - стиль иконки (Solid)
+                            fa-cloud-upload-alt - конкретная иконка "облако с загрузкой"
+                            upload-icon - ваш кастомный класс для дополнительного стилевания
+                            -->
+                            <p>Select a file or drag and drop here</p>
+                            <p class="upload-hint">Only support .jpg, .png and .gif. Maximum file size is 5MB</p>
+                            <p id="upload-error" class="upload-error hidden">Upload failed</p>
+                        </div>
+                        <input type="file" id="file-input" class="hidden">
+                        <!--type="file" - специфичный input для выбора файлов-->
+                        <button id="browse-btn" class="browse-btn">Browse your file</button>
+
+                        <div class="current-upload">
+                            <h2>Current Upload</h2>
+                            <div class="url-container">
+                              <input type="text" id="url-input" placeholder="https://" readonly>
+                              <button id="copy-btn">COPY</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="images-view" class="hidden">
+                      <ul id="image-list" class="image-list">
+                      <!--Пустой список для загрузки изображений-->
+                      </ul>
+                      <template id="image-item-template">
+                      <!--
+                      <template> — это HTML-элемент для создания шаблонов
+                      разметки, которые:
+                      Не отображаются на странице
+                      Не загружают ресурсы (изображения, стили)
+                      Клонируются через JavaScript при необходимости
+                      -->
+                          <li class="image-item">
+                              <div class="image-item__name">
+                                  <i class="fas fa-file-image"></i>
+                                  <span>file-name.jpg</span>
+                                  <!--
+                                  <span> — это строчный (inline) HTML-тег,
+                                  который используется для:
+                                  Группировки мелких текстовых элементов
+                                  Применения стилей к части текста (через CSS или JS)
+                                  Добавления служебных атрибутов (например, data-*, aria-*)
+                                  Основные особенности
+                                  Строчный элемент — не переносит содержимое на новую строку
+                                  Не имеет семантического значения (в отличие от <strong>, <em>)
+                                  Пустой по умолчанию — не добавляет стилей или отступов
+                                  -->
+                              </div>
+                              <div class="image-item__url">
+                                  <a href="#" target="_blank">https://sharefile.xyz/file.jpg</a>
+                              </div>
+                              <div class="image-item__delete">
+                                  <button class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                              </div>
+                          </li>
+                      </template>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+          <script src="script.js"></script>
+    </body>
 </html>

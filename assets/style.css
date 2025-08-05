@@ -1,0 +1,348 @@
+/*:root — это CSS-псевдокласс, который обращается к корневому элементу
+документа (обычно <html>). В нём принято объявлять глобальные CSS-переменные
+(кастомные свойства), которые можно использовать по всему проекту.*/
+:root {
+  --primary-blue: #0d6efd; /*--primary-blue: #0d6efd; — это объявление
+  CSS-переменной (кастомного свойства) с именем --primary-blue и значением
+  синего цвета (#0d6efd). Обычно такие переменные определяют в селекторе :root,
+  чтобы использовать их глобально.*/
+  --dark-bg: #121212;
+  --text-light: #ffffff;
+  --text-dark: #212529;
+  --text-muted: #6c757d;
+  --bg-light: #f8f9fa;
+  --border-color: #dee2e6;
+  --error-color: #dc3545;
+  --font-family-main: 'Inter', 'Helvetica', 'Arial', sans-serif; /*переменная,
+  которая задает основной шрифт для проекта с резервными вариантами.
+  Шрифтовой стек (font stack) указывает браузеру:
+  Сначала попробовать загрузить Inter
+  Если его нет — использовать Helvetica
+  Затем Arial
+  В крайнем случае — стандартный sans-serif*/
+}
+
+/*это CSS-селектор, который выбирает все элементы на странице. Его используют
+для глобальных стилей, но применяют с осторожностью.*/
+* {
+  margin: 0; /*Удаляет все внешние отступы у элементов*/
+  padding: 0; /*Удаляет все внутренние отступы.*/
+  box-sizing: border-box; /*Меняет модель расчета ширины/высоты:
+  width = content + padding + border
+  Зачем: Чтобы padding и border не увеличивали итоговые размеры элемента.
+  Пример: Без этого div { width: 100px; padding: 10px; } займет 120px.*/
+}
+
+body {
+  font-family: var(--font-family-main); /*это CSS-правило, которое
+  устанавливает шрифт для элемента, используя значение пользовательской
+  CSS-переменной*/
+}
+
+.hero-page {
+  display: flex; /*свойство, которое превращает элемент в гибкий контейнер
+  (flex container), позволяя легко управлять расположением его дочерних
+  элементов (flex-элементов)*/
+  align-items: center; /* Вертикальное выравнивание */
+  justify-content: center; /* Горизонтальное выравнивание */
+  min-height: 100vh; /*свойство, которое устанавливает минимальную высоту
+  элемента равной 100% высоты видимой области окна браузера
+  (viewport height)*/
+  background-color: vat(--dark-bg);
+  background-image: url('assets/images/dog2.png');
+  background-size: cover; /*используется для масштабирования фонового
+  изображения так, чтобы оно полностью покрывало контейнер, сохраняя при этом
+  пропорции изображения*/
+  background-position: center; /*определяет, как фоновое изображение
+  позиционируется внутри своего контейнера*/
+}
+
+.hero-content {
+  text-align: center; /*Выравнивает текст и inline-элементы (кнопки, ссылки) по
+  центру блока.*/
+  color: var(--text-light); /*Задаёт цвет текста через CSS-переменную*/
+  padding: 20px 40px; /*Внутренние отступы: 20px — сверху/снизу,
+  40px — слева/справа.*/
+  background-color: rgba(0, 0, 0, 0.4); /*Полупрозрачный чёрный фон
+  (альфа-канал 0.4 = 40% прозрачности)*/
+  border-radius: 10px; /*Скругление углов блока на 10px*/
+}
+
+.hero-title {
+  font-size: 32px; /*Размер шрифта*/
+  font-weight: 700; /*Жирность (аналог bold)*/
+  margin-bottom: 400px; /*Нижний отступ*/
+}
+
+.hero-subtitle {
+  margin-bottom: 40px;
+  max-width: 400px;
+}
+
+.hero-button {
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem; /*Свойство font-size: 1rem; задаёт размер шрифта элемента,
+  равный корневому размеру шрифта (<html>), который по умолчанию в большинстве
+  браузеров равен 16px.*/
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase; /*Это CSS-свойство преобразует текст в заглавные
+  буквы (верхний регистр), не меняя исходное содержимое в HTML.*/
+}
+
+/*Для элемента class="main-app hidden":
+.hidden — главный, он скроет элемент, несмотря на другие стили.
+.main-app — определяет внешний вид, но только когда элемент видим (без .hidden).
+Управление через JS будет переключать видимость.*/
+/*Закоментировано для отладки:*/
+.hidden {
+    display: none !important;
+}
+
+.main-app {
+    padding: 40px 20px;
+}
+
+.app-container {
+    max-width: 900px; /*Ограничивает максимальную ширину контейнера 900 пикселями
+    На широких экранах контейнер не будет растягиваться бесконечно
+    На узких экранах (меньше 900px) контейнер автоматически сожмется*/
+    margin: 0 auto; /*0 - убирает внешние отступы сверху и снизу
+    auto - автоматически центрирует контейнер по горизонтали
+    Работает только в сочетании с max-width или width*/
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1); /*Создает легкую тень:
+    0 - смещение по X (нет смещения)
+    6px - смещение по Y (вниз)
+    16px - размытие тени
+    rgba(0,0,0,0.12) - черный цвет с 12% прозрачностью
+    Добавляет глубину и отделяет контейнер от фона*/
+    padding: 24px;
+}
+
+.app-header {
+    display: flex;           /* Гибкое расположение элементов */
+    flex-direction: column;  /* Элементы в колонку (теперь это работает для переноса строк)*/
+    align-items: center;     /* Центрирование по горизонтали (теперь это работает для колонок) */
+    justify-content: center; /* Центрирование по горизонтали */
+    padding-bottom: 16px;    /* Отступ снизу */
+    border-bottom: 1px solid #dee2e6; /* Линия-разделитель */
+    margin-bottom: 24px;     /* Внешний отступ снизу */
+}
+
+.app-title {
+    font-size: 32px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.app-subtitle {
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+.app-nav {
+    display: flex;               /* Включает flex-разметку */
+    justify-content: center;     /* Центрирует элементы по горизонтали */
+    gap: 24px;                  /* Расстояние между пунктами меню */
+    border-bottom: 1px solid var(--border-color); /* Линия под меню */
+    margin-bottom: 32px;        /* Отступ снизу */
+}
+
+.app-nav__button {
+    /* Сброс стандартных стилей */
+    background: rgba(0, 0, 0, 0.05); /* Легкий серый фон */
+    border: none;
+    outline: none;
+
+    /* Стили рамки */
+    border-radius: 24px; /* Сильное скругление углов */
+    padding: 10px 20px; /* Увеличиваем отступы */
+    border: 1px solid #e0e0e0; /* Светлая граница */
+
+    /* Текст */
+    color: #6c757d; /* Серый цвет текста */
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+
+    /* Анимации */
+    transition: all 0.3s ease; /* Плавные переходы для всех свойств */
+
+    /* Отключаем выделение текста */
+    user-select: none;
+
+    /* Внутренняя тень для глубины */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.app-nav__button.active {
+    background: var(--primary-blue); /* Основной синий цвет фона */
+    color: white; /* Белый текст */
+    font-weight: 500;
+    border-color: var(--primary-blue); /* Граница того же цвета */
+
+    /* Внешняя тень для акцента */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+
+    /* Убираем внутреннюю тень в активном состоянии */
+    box-shadow: none;
+}
+
+.app-nav__button:hover {
+    background: rgba(0, 0, 0, 0.08); /* Темнее при наведении */
+    transform: translateY(-1px); /* Легкий подъем */
+}
+
+.app-nav__button.active:hover {
+    background: var(--primary-blue-dark); /* Темнее активный фон */
+    color: black;
+    transform: translateY(-1px);
+}
+
+.upload-drop-zone {
+    border: 2px dashed var(--primary-blue);  /* Пунктирная граница синего цвета */
+    border-radius: 8px;                     /* Скругление углов */
+    padding: 40px 20px;                     /* Внутренние отступы */
+    text-align: center;                     /* Выравнивание текста по центру */
+    cursor: pointer;                        /* Курсор в виде указателя */
+    background-color: #f0f6ff;              /* Светло-голубой фон */
+    transition: background-color 0.2s;      /* Плавное изменение фона */
+}
+
+.upload-hint {
+    color: var(--text-muted) !important;
+    font-size: 14px !important;
+}
+
+.upload-error {
+    color: var(--error-color) !important;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.browse-btn {
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background-color 0.2s;
+}
+
+.browse-btn:hover {
+    background-color: #133eea;
+}
+
+.current-upload {
+    margin-top: 32px;
+}
+
+.current-upload h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.url-container {
+    display: flex;
+}
+
+#url-input {
+    flex-grow: 1;  /* Элемент займёт всё доступное пространство */
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+}
+
+#copy-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.image-list {
+    list-style: none;
+}
+
+.image-item {
+    display: grid;                   /* Включает Grid-разметку */
+    grid-template-columns: 2fr 3fr 1fr; /* 3 колонки с пропорциями 2:3:1 */
+    align-items: center;             /* Вертикальное выравнивание по центру */
+    padding: 16px;                  /* Внутренние отступы */
+    border-bottom: 1px solid var(--border-color); /* Разделительная линия */
+}
+
+.image-item:last-child {
+    border-bottom: none;
+}
+
+.image-item__name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+.image-item__name i {
+    color: var(--primary-blue);
+    font-size: 20px;
+}
+
+.image-item__url a {
+    color: var(--text-muted);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.image-item__url a:hover {
+    text-decoration: underline;
+    color: var(--primary-blue);
+}
+
+.image-item__delete {
+    text-align: right;
+}
+
+.file-name {
+  font-family: monospace;    /* Моноширинный шрифт для имён файлов */
+  color: #333;              /* Цвет текста */
+  font-size: 14px;          /* Размер */
+  display: inline-block;    /* Для корректных отступов */
+  max-width: 200px;         /* Ограничение ширины */
+  white-space: nowrap;      /* Запрет переноса */
+  overflow: hidden;         /* Скрытие переполнения */
+  text-overflow: ellipsis;  /* Многоточие при обрезке */
+  vertical-align: middle;   /* Выравнивание с иконками */
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 18px;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.delete-btn:hover {
+    color: var(--error-color);
+    background-color: #fdeeee;
+}
