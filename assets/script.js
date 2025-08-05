@@ -15,13 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageItemTemplate = document.getElementById('image-item-template');
 
     const heroImages = [
-        'assets/images/bird.png',
-        'assets/images/cat.png',
-        'assets/images/dog1.png',
-        'assets/images/dog2.png',
-        'assets/images/dog3.png',
+        'images/bird.png',
+        'images/cat.png',
+        'images/dog1.png',
+        'images/dog2.png',
+        'images/dog3.png',
     ];
     let uploadedImages = [];
+
 
     function setRandomHeroImage() {
         const randomIndex = Math.floor(Math.random() * heroImages.length);
