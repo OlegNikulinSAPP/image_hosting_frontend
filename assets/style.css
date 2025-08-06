@@ -48,13 +48,14 @@ body {
   min-height: 100vh; /*свойство, которое устанавливает минимальную высоту
   элемента равной 100% высоты видимой области окна браузера
   (viewport height)*/
-  background-color: vat(--dark-bg);
+  background-color: var(--dark-bg);
   background-image: url('assets/images/dog2.png');
   background-size: cover; /*используется для масштабирования фонового
   изображения так, чтобы оно полностью покрывало контейнер, сохраняя при этом
   пропорции изображения*/
   background-position: center; /*определяет, как фоновое изображение
   позиционируется внутри своего контейнера*/
+  transition: background-image 0.5s ease-in-out;
 }
 
 .hero-content {
