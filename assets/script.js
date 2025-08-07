@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         heroPage.style.backgroundImage = `url(${randomImage})`;
     }
 
-
     setRandomHeroImage();
     setInterval(setRandomHeroImage, 1000);
 });
