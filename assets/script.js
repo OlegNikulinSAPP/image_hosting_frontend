@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const heroPage = document.getElementById('hero-page');
 
-
     const heroImages = [
         'images/bird.png',
         'images/cat.png',
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         'images/dog2.png',
         'images/dog3.png',
     ];
-
 
     function setRandomHeroImage() {
         const randomIndex = Math.floor(Math.random() * heroImages.length);
