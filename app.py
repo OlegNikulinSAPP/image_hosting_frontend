@@ -1,6 +1,7 @@
 import http.server
 import socketserver
 import logging
+from logging.handlers import RotatingFileHandler
 import json
 import os
 from urllib.parse import urlparse, parse_qs
@@ -25,16 +26,19 @@ if not os.path.exists(LOG_DIR):
 if not os.path.exists(STATIC_FILES_DIR):
     os.makedirs(STATIC_FILES_DIR)
 
-# Настройка логирования
+# Настройка логирования с ротацией
 logging.basicConfig(
     level=logging.INFO,
     format='[%(asctime)s] %(levelname)s: %(message)s',
     handlers=[
-        logging.FileHandler(os.path.join(LOG_DIR, 'app.log')),
-        logging.StreamHandler()
+        RotatingFileHandler(
+            os.path.join(LOG_DIR, 'app.log'),
+            maxBytes=1024*1024,  # 1 MB
+            backupCount=5
+        ),
+        logging.StreamHandler()  # Вывод в консоль
     ]
 )
-
 
 # ===========================================
 #
