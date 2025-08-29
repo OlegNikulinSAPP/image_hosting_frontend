@@ -111,15 +111,21 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         parsed_path = urlparse(self.path)
 
+        # Логируем  HTTP-запрос
+        logging.info('====POST-запрос====')
+        logging.info(f'Метод: {self.command}')
+        logging.info(f'Путь и параметры: {self.path}')
+        logging.info(f'Версия протокола: {self.request_version}')
+        logging.info('===================')
+
         if parsed_path.path == '/upload':
             content_length = int(self.headers.get('Content-Length', 0))
 
-            logging.info('??????????????????????????')
             # Логируем все заголовки
             logging.info("=== HTTP HEADERS ===")
             for key, value in self.headers.items():
                 logging.info(f"{key}: {value}")
-            logging.info('??????????????????????????')
+            logging.info('====================')
 
             # Проверка размера файла
             if content_length > MAX_FILE_SIZE:
@@ -137,9 +143,25 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             try:
                 post_data = self.rfile.read(content_length)
 
+                # Логируем первые 500 байт тела запроса
+                logging.info("=== BODY (first 500 bytes) ===")
+                logging.info(post_data[:150])
+                logging.info("==============================")
+
                 # Парсим multipart/form-data (упрощенная версия)
                 # В реальном проекте лучше использовать библиотеку для парсинга multipart
                 boundary = self.headers.get('Content-Type').split('boundary=')[-1]
+
+                # Логируем self.headers.get('Content-Type')
+                logging.info("====self.headers.get('Content-Type')====")
+                logging.info(self.headers.get('Content-Type'))
+                logging.info('========================================')
+
+                # Логируем boundary (границу)
+                logging.info('====boundary====')
+                logging.info(boundary)
+                logging.info('================')
+
                 parts = post_data.split(b'--' + boundary.encode())
 
                 file_data = None

@@ -305,3 +305,460 @@ Cookie: adminer_key=9524b2c89fc29104fb20915db7297248; adminer_sid=a9b7493e49bda8
 [2025-08-29 15:35:01,604] INFO: ??????????????????????????
 [2025-08-29 15:35:01,663] INFO: Действие: Изображение '71780effdb9b41822ac43a7a67d68df3.jpg' (сохранено как '97a07374e06c41778d2c7e0756d3e7c7.jpg') успешно загружено. Ссылка: /images/97a07374e06c41778d2c7e0756d3e7c7.jpg
 [2025-08-29 15:44:02,676] INFO: Сервер остановлен.
+[2025-08-29 18:12:18,526] INFO: Сервер запущен на порту 8000
+[2025-08-29 18:12:23,289] INFO: Действие: Отдан статический файл: /
+[2025-08-29 18:12:23,462] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 18:12:23,560] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 18:12:23,823] INFO: Действие: Отдан статический файл: /
+[2025-08-29 18:12:23,891] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 18:12:23,895] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 18:12:24,215] WARNING: Действие: Файл не найден: /favicon.ico
+[2025-08-29 18:12:45,953] INFO: ??????????????????????????
+[2025-08-29 18:12:45,953] INFO: === HTTP HEADERS ===
+[2025-08-29 18:12:45,953] INFO: Host: localhost:8000
+[2025-08-29 18:12:45,954] INFO: Connection: keep-alive
+[2025-08-29 18:12:45,954] INFO: Content-Length: 41642
+[2025-08-29 18:12:45,954] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 18:12:45,954] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 18:12:45,954] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 18:12:45,954] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryV6TSeXyvSRxqtOhm
+[2025-08-29 18:12:45,954] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 18:12:45,954] INFO: Accept: */*
+[2025-08-29 18:12:45,955] INFO: Origin: http://localhost:8000
+[2025-08-29 18:12:45,955] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 18:12:45,955] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 18:12:45,956] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 18:12:45,956] INFO: Referer: http://localhost:8000/
+[2025-08-29 18:12:45,956] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 18:12:45,956] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 18:12:45,957] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 18:12:45,957] INFO: ??????????????????????????
+[2025-08-29 18:12:45,965] INFO: Это начало
+[2025-08-29 18:12:45,965] INFO: ----WebKitFormBoundaryV6TSeXyvSRxqtOhm
+[2025-08-29 18:12:45,965] INFO: А это конец
+[2025-08-29 18:12:45,969] INFO: Действие: Изображение 'AlbumArtSmall.jpg' (сохранено как 'fc16beeeb5ac4a59981052b447d0fe8c.jpg') успешно загружено. Ссылка: /images/fc16beeeb5ac4a59981052b447d0fe8c.jpg
+[2025-08-29 19:52:47,546] INFO: Сервер остановлен.
+[2025-08-29 20:16:53,610] INFO: Сервер запущен на порту 8000
+[2025-08-29 20:16:56,873] INFO: Действие: Отдан статический файл: /
+[2025-08-29 20:16:57,042] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 20:16:57,148] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 20:16:57,415] INFO: Действие: Отдан статический файл: /
+[2025-08-29 20:16:57,483] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 20:16:57,485] WARNING: Действие: Файл не найден: /static/cat.png
+[2025-08-29 20:17:05,280] INFO: ====POST-запрос====
+[2025-08-29 20:17:05,280] INFO: === HTTP HEADERS ===
+[2025-08-29 20:17:05,280] INFO: /
+[2025-08-29 20:17:05,280] INFO: u
+[2025-08-29 20:17:05,280] INFO: p
+[2025-08-29 20:17:05,280] INFO: l
+[2025-08-29 20:17:05,280] INFO: o
+[2025-08-29 20:17:05,280] INFO: a
+[2025-08-29 20:17:05,280] INFO: d
+[2025-08-29 20:17:05,280] INFO: ========
+[2025-08-29 20:17:05,280] INFO: ??????????????????????????
+[2025-08-29 20:17:05,280] INFO: === HTTP HEADERS ===
+[2025-08-29 20:17:05,280] INFO: Host: localhost:8000
+[2025-08-29 20:17:05,280] INFO: Connection: keep-alive
+[2025-08-29 20:17:05,280] INFO: Content-Length: 41682
+[2025-08-29 20:17:05,281] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 20:17:05,281] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 20:17:05,281] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 20:17:05,281] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryGIUftvBMRXobBkYV
+[2025-08-29 20:17:05,281] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 20:17:05,281] INFO: Accept: */*
+[2025-08-29 20:17:05,281] INFO: Origin: http://localhost:8000
+[2025-08-29 20:17:05,281] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 20:17:05,281] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 20:17:05,281] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 20:17:05,281] INFO: Referer: http://localhost:8000/
+[2025-08-29 20:17:05,281] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 20:17:05,281] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 20:17:05,281] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 20:17:05,281] INFO: ??????????????????????????
+[2025-08-29 20:17:05,289] INFO: Это начало
+[2025-08-29 20:17:05,289] INFO: ----WebKitFormBoundaryGIUftvBMRXobBkYV
+[2025-08-29 20:17:05,289] INFO: А это конец
+[2025-08-29 20:17:05,290] INFO: Действие: Изображение 'AlbumArt_{B5020207-474E-4720-887A-EB278435E100}_Small.jpg' (сохранено как 'a93afefdc73b4e8c9f93e3aecf47a5c8.jpg') успешно загружено. Ссылка: /images/a93afefdc73b4e8c9f93e3aecf47a5c8.jpg
+[2025-08-29 20:18:07,741] INFO: Сервер остановлен.
+[2025-08-29 20:18:52,203] INFO: Сервер запущен на порту 8000
+[2025-08-29 20:18:57,824] INFO: ====POST-запрос====
+[2025-08-29 20:18:57,824] INFO: /upload
+[2025-08-29 20:18:57,824] INFO: ===================
+[2025-08-29 20:18:57,824] INFO: ??????????????????????????
+[2025-08-29 20:18:57,824] INFO: === HTTP HEADERS ===
+[2025-08-29 20:18:57,824] INFO: Host: localhost:8000
+[2025-08-29 20:18:57,824] INFO: Connection: keep-alive
+[2025-08-29 20:18:57,824] INFO: Content-Length: 41642
+[2025-08-29 20:18:57,825] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 20:18:57,825] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 20:18:57,825] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 20:18:57,825] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryBspnr51MvlcoMIum
+[2025-08-29 20:18:57,825] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 20:18:57,825] INFO: Accept: */*
+[2025-08-29 20:18:57,825] INFO: Origin: http://localhost:8000
+[2025-08-29 20:18:57,825] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 20:18:57,826] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 20:18:57,826] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 20:18:57,826] INFO: Referer: http://localhost:8000/
+[2025-08-29 20:18:57,826] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 20:18:57,826] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 20:18:57,826] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 20:18:57,826] INFO: ??????????????????????????
+[2025-08-29 20:18:57,835] INFO: Это начало
+[2025-08-29 20:18:57,835] INFO: ----WebKitFormBoundaryBspnr51MvlcoMIum
+[2025-08-29 20:18:57,835] INFO: А это конец
+[2025-08-29 20:18:57,836] INFO: Действие: Изображение 'AlbumArtSmall.jpg' (сохранено как 'bf2d197f28174380aa5b6d94e0e3e339.jpg') успешно загружено. Ссылка: /images/bf2d197f28174380aa5b6d94e0e3e339.jpg
+[2025-08-29 21:51:30,631] INFO: Сервер остановлен.
+[2025-08-29 21:53:19,478] INFO: Сервер запущен на порту 8000
+[2025-08-29 21:53:27,735] INFO: Действие: Отдан статический файл: /
+[2025-08-29 21:53:27,786] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 21:53:27,979] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 21:53:28,134] INFO: Действие: Отдан статический файл: /
+[2025-08-29 21:53:28,327] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 21:53:28,329] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 21:53:35,273] INFO: ====POST-запрос====
+[2025-08-29 21:53:35,305] INFO: ===================
+[2025-08-29 21:53:35,306] INFO: ??????????????????????????
+[2025-08-29 21:53:35,306] INFO: === HTTP HEADERS ===
+[2025-08-29 21:53:35,306] INFO: Host: localhost:8000
+[2025-08-29 21:53:35,306] INFO: Connection: keep-alive
+[2025-08-29 21:53:35,306] INFO: Content-Length: 41682
+[2025-08-29 21:53:35,306] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 21:53:35,306] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 21:53:35,306] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 21:53:35,306] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryJZOQGA45BEuEoZZQ
+[2025-08-29 21:53:35,306] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 21:53:35,306] INFO: Accept: */*
+[2025-08-29 21:53:35,306] INFO: Origin: http://localhost:8000
+[2025-08-29 21:53:35,306] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 21:53:35,306] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 21:53:35,307] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 21:53:35,307] INFO: Referer: http://localhost:8000/
+[2025-08-29 21:53:35,307] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 21:53:35,307] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 21:53:35,307] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 21:53:35,307] INFO: ??????????????????????????
+[2025-08-29 21:53:35,307] INFO: Это начало
+[2025-08-29 21:53:35,307] INFO: ----WebKitFormBoundaryJZOQGA45BEuEoZZQ
+[2025-08-29 21:53:35,307] INFO: А это конец
+[2025-08-29 21:53:35,308] INFO: Действие: Изображение 'AlbumArt_{B5020207-474E-4720-887A-EB278435E100}_Large.jpg' (сохранено как 'eed978ad4c2343ea917043a46bb509a0.jpg') успешно загружено. Ссылка: /images/eed978ad4c2343ea917043a46bb509a0.jpg
+[2025-08-29 21:56:05,655] INFO: Сервер остановлен.
+[2025-08-29 21:57:22,060] INFO: Сервер запущен на порту 8000
+[2025-08-29 21:57:26,232] INFO: Действие: Отдан статический файл: /
+[2025-08-29 21:57:26,250] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 21:57:26,494] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 21:57:26,591] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 21:57:26,812] INFO: Действие: Отдан статический файл: /
+[2025-08-29 21:57:26,812] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 21:57:31,150] INFO: ====POST-запрос====
+[2025-08-29 21:57:31,150] INFO: Метод: POST
+[2025-08-29 21:57:31,150] INFO: Путь и параметры: /upload
+[2025-08-29 21:57:31,151] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 21:57:31,151] INFO: ===================
+[2025-08-29 21:57:31,151] INFO: ??????????????????????????
+[2025-08-29 21:57:31,151] INFO: === HTTP HEADERS ===
+[2025-08-29 21:57:31,151] INFO: Host: localhost:8000
+[2025-08-29 21:57:31,151] INFO: Connection: keep-alive
+[2025-08-29 21:57:31,151] INFO: Content-Length: 41635
+[2025-08-29 21:57:31,151] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 21:57:31,151] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 21:57:31,151] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 21:57:31,151] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundarysL4PmW1AJy3qmbsh
+[2025-08-29 21:57:31,151] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 21:57:31,151] INFO: Accept: */*
+[2025-08-29 21:57:31,151] INFO: Origin: http://localhost:8000
+[2025-08-29 21:57:31,151] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 21:57:31,151] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 21:57:31,151] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 21:57:31,151] INFO: Referer: http://localhost:8000/
+[2025-08-29 21:57:31,152] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 21:57:31,152] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 21:57:31,152] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 21:57:31,152] INFO: ??????????????????????????
+[2025-08-29 21:57:31,162] INFO: Это начало
+[2025-08-29 21:57:31,162] INFO: ----WebKitFormBoundarysL4PmW1AJy3qmbsh
+[2025-08-29 21:57:31,163] INFO: А это конец
+[2025-08-29 21:57:31,163] INFO: Действие: Изображение 'Folder.jpg' (сохранено как 'f2dc63323d094b2dbedd82de5b604898.jpg') успешно загружено. Ссылка: /images/f2dc63323d094b2dbedd82de5b604898.jpg
+[2025-08-29 21:59:05,769] INFO: Сервер остановлен.
+[2025-08-29 22:02:55,736] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:03:03,653] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:03:03,802] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:03:03,916] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:03:04,166] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:03:04,232] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:03:04,234] WARNING: Действие: Файл не найден: /static/dog3.png
+[2025-08-29 22:03:19,921] INFO: ====POST-запрос====
+[2025-08-29 22:03:19,921] INFO: Метод: POST
+[2025-08-29 22:03:19,921] INFO: Путь и параметры: /upload
+[2025-08-29 22:03:19,921] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:03:19,921] INFO: ===================
+[2025-08-29 22:03:19,921] INFO: === HTTP HEADERS ===
+[2025-08-29 22:03:19,922] INFO: Host: localhost:8000
+[2025-08-29 22:03:19,922] INFO: Connection: keep-alive
+[2025-08-29 22:03:19,922] INFO: Content-Length: 41635
+[2025-08-29 22:03:19,922] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:03:19,922] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:03:19,922] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:03:19,922] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryehtf3YlX6JHwgbIX
+[2025-08-29 22:03:19,922] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:03:19,922] INFO: Accept: */*
+[2025-08-29 22:03:19,922] INFO: Origin: http://localhost:8000
+[2025-08-29 22:03:19,923] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:03:19,923] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:03:19,923] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:03:19,923] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:03:19,923] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:03:19,923] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:03:19,923] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:03:19,923] INFO: ====================
+[2025-08-29 22:03:19,931] INFO: ====boundary====
+[2025-08-29 22:03:19,932] INFO: ----WebKitFormBoundaryehtf3YlX6JHwgbIX
+[2025-08-29 22:03:19,932] INFO: ================
+[2025-08-29 22:03:19,932] INFO: Действие: Изображение 'Folder.jpg' (сохранено как 'dbbfcfbd70784b7b8bf1d36938cef34a.jpg') успешно загружено. Ссылка: /images/dbbfcfbd70784b7b8bf1d36938cef34a.jpg
+[2025-08-29 22:11:05,314] INFO: Сервер остановлен.
+[2025-08-29 22:13:43,886] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:13:50,665] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:13:50,814] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:13:50,926] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:13:51,174] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:13:51,250] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:13:51,251] WARNING: Действие: Файл не найден: /static/dog2.png
+[2025-08-29 22:13:56,158] INFO: ====POST-запрос====
+[2025-08-29 22:13:56,158] INFO: Метод: POST
+[2025-08-29 22:13:56,158] INFO: Путь и параметры: /upload
+[2025-08-29 22:13:56,159] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:13:56,159] INFO: ===================
+[2025-08-29 22:13:56,159] INFO: === HTTP HEADERS ===
+[2025-08-29 22:13:56,159] INFO: Host: localhost:8000
+[2025-08-29 22:13:56,159] INFO: Connection: keep-alive
+[2025-08-29 22:13:56,159] INFO: Content-Length: 41682
+[2025-08-29 22:13:56,159] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:13:56,159] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:13:56,159] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:13:56,159] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundarywDCitPQs31r4TfXL
+[2025-08-29 22:13:56,159] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:13:56,159] INFO: Accept: */*
+[2025-08-29 22:13:56,159] INFO: Origin: http://localhost:8000
+[2025-08-29 22:13:56,159] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:13:56,159] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:13:56,159] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:13:56,159] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:13:56,160] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:13:56,160] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:13:56,160] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:13:56,160] INFO: ====================
+[2025-08-29 22:13:56,171] INFO: ====boundary====
+[2025-08-29 22:13:56,172] INFO: multipart/form-data; boundary=----WebKitFormBoundarywDCitPQs31r4TfXL
+[2025-08-29 22:13:56,172] INFO: ================
+[2025-08-29 22:13:56,172] INFO: ====boundary====
+[2025-08-29 22:13:56,172] INFO: ----WebKitFormBoundarywDCitPQs31r4TfXL
+[2025-08-29 22:13:56,172] INFO: ================
+[2025-08-29 22:13:56,173] INFO: Действие: Изображение 'AlbumArt_{B5020207-474E-4720-887A-EB278435E100}_Small.jpg' (сохранено как 'd8cdbd9b1d564ff0b5f9815f5d5bbd16.jpg') успешно загружено. Ссылка: /images/d8cdbd9b1d564ff0b5f9815f5d5bbd16.jpg
+[2025-08-29 22:32:31,325] INFO: Сервер остановлен.
+[2025-08-29 22:32:36,872] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:33:10,328] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:33:10,330] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:33:10,470] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:33:10,785] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:33:10,847] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:33:11,098] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:33:11,101] WARNING: Действие: Файл не найден: /static/dog2.png
+[2025-08-29 22:33:17,202] INFO: ====POST-запрос====
+[2025-08-29 22:33:17,202] INFO: Метод: POST
+[2025-08-29 22:33:17,202] INFO: Путь и параметры: /upload
+[2025-08-29 22:33:17,202] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:33:17,202] INFO: ===================
+[2025-08-29 22:33:17,203] INFO: === HTTP HEADERS ===
+[2025-08-29 22:33:17,203] INFO: Host: localhost:8000
+[2025-08-29 22:33:17,203] INFO: Connection: keep-alive
+[2025-08-29 22:33:17,203] INFO: Content-Length: 137205
+[2025-08-29 22:33:17,203] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:33:17,203] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:33:17,203] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:33:17,203] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundarybqfzE15M90pxfsUX
+[2025-08-29 22:33:17,203] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:33:17,203] INFO: Accept: */*
+[2025-08-29 22:33:17,203] INFO: Origin: http://localhost:8000
+[2025-08-29 22:33:17,203] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:33:17,203] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:33:17,203] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:33:17,203] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:33:17,203] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:33:17,203] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:33:17,204] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:33:17,204] INFO: ====================
+[2025-08-29 22:33:17,225] INFO: ====self.headers.get('Content-Type')====
+[2025-08-29 22:33:17,225] INFO: multipart/form-data; boundary=----WebKitFormBoundarybqfzE15M90pxfsUX
+[2025-08-29 22:33:17,225] INFO: ========================================
+[2025-08-29 22:33:17,226] INFO: ====boundary====
+[2025-08-29 22:33:17,226] INFO: ----WebKitFormBoundarybqfzE15M90pxfsUX
+[2025-08-29 22:33:17,226] INFO: ================
+[2025-08-29 22:33:17,227] INFO: Действие: Изображение 'fd92ecc5af9f85bac00972dd0086a48d.jpg' (сохранено как '380dc4a0f0164dde91dbf79d2fdb2375.jpg') успешно загружено. Ссылка: /images/380dc4a0f0164dde91dbf79d2fdb2375.jpg
+[2025-08-29 22:34:32,019] INFO: Сервер остановлен.
+[2025-08-29 22:35:05,987] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:35:12,841] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:35:12,990] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:35:13,105] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:35:13,338] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:35:13,435] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:35:13,435] WARNING: Действие: Файл не найден: /static/dog2.png
+[2025-08-29 22:35:23,127] INFO: ====POST-запрос====
+[2025-08-29 22:35:23,127] INFO: Метод: POST
+[2025-08-29 22:35:23,127] INFO: Путь и параметры: /upload
+[2025-08-29 22:35:23,127] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:35:23,127] INFO: ===================
+[2025-08-29 22:35:23,127] INFO: === HTTP HEADERS ===
+[2025-08-29 22:35:23,127] INFO: Host: localhost:8000
+[2025-08-29 22:35:23,128] INFO: Connection: keep-alive
+[2025-08-29 22:35:23,128] INFO: Content-Length: 41642
+[2025-08-29 22:35:23,128] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:35:23,128] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:35:23,128] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:35:23,128] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryIpx7BptOsRFv1BIg
+[2025-08-29 22:35:23,128] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:35:23,128] INFO: Accept: */*
+[2025-08-29 22:35:23,128] INFO: Origin: http://localhost:8000
+[2025-08-29 22:35:23,128] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:35:23,128] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:35:23,128] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:35:23,128] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:35:23,129] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:35:23,129] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:35:23,129] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:35:23,129] INFO: ====================
+[2025-08-29 22:35:23,138] INFO: === BODY (first 500 bytes) ===
+[2025-08-29 22:35:23,158] INFO: ==============================
+[2025-08-29 22:35:23,158] INFO: ====self.headers.get('Content-Type')====
+[2025-08-29 22:35:23,158] INFO: multipart/form-data; boundary=----WebKitFormBoundaryIpx7BptOsRFv1BIg
+[2025-08-29 22:35:23,158] INFO: ========================================
+[2025-08-29 22:35:23,158] INFO: ====boundary====
+[2025-08-29 22:35:23,158] INFO: ----WebKitFormBoundaryIpx7BptOsRFv1BIg
+[2025-08-29 22:35:23,158] INFO: ================
+[2025-08-29 22:35:23,159] INFO: Действие: Изображение 'AlbumArtSmall.jpg' (сохранено как 'a83ea5815e2d40e592064bf39cf17bac.jpg') успешно загружено. Ссылка: /images/a83ea5815e2d40e592064bf39cf17bac.jpg
+[2025-08-29 22:41:17,063] INFO: Сервер остановлен.
+[2025-08-29 22:41:22,116] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:41:23,885] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:41:24,026] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:41:24,130] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:41:24,379] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:41:24,458] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:41:24,459] WARNING: Действие: Файл не найден: /static/dog1.png
+[2025-08-29 22:41:34,575] INFO: ====POST-запрос====
+[2025-08-29 22:41:34,575] INFO: Метод: POST
+[2025-08-29 22:41:34,576] INFO: Путь и параметры: /upload
+[2025-08-29 22:41:34,576] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:41:34,576] INFO: ===================
+[2025-08-29 22:41:34,576] INFO: === HTTP HEADERS ===
+[2025-08-29 22:41:34,576] INFO: Host: localhost:8000
+[2025-08-29 22:41:34,576] INFO: Connection: keep-alive
+[2025-08-29 22:41:34,576] INFO: Content-Length: 41635
+[2025-08-29 22:41:34,576] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:41:34,576] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:41:34,576] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:41:34,576] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAGATFcyMsNveTL2e
+[2025-08-29 22:41:34,577] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:41:34,577] INFO: Accept: */*
+[2025-08-29 22:41:34,577] INFO: Origin: http://localhost:8000
+[2025-08-29 22:41:34,577] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:41:34,577] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:41:34,577] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:41:34,577] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:41:34,577] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:41:34,577] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:41:34,577] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:41:34,577] INFO: ====================
+[2025-08-29 22:41:34,584] INFO: === BODY (first 500 bytes) ===
+[2025-08-29 22:41:34,584] INFO: ------WebKitFormBoundaryAGATFcyMsNveTL2e
+Content-
+[2025-08-29 22:41:34,584] INFO: ==============================
+[2025-08-29 22:41:34,584] INFO: ====self.headers.get('Content-Type')====
+[2025-08-29 22:41:34,585] INFO: multipart/form-data; boundary=----WebKitFormBoundaryAGATFcyMsNveTL2e
+[2025-08-29 22:41:34,585] INFO: ========================================
+[2025-08-29 22:41:34,585] INFO: ====boundary====
+[2025-08-29 22:41:34,585] INFO: ----WebKitFormBoundaryAGATFcyMsNveTL2e
+[2025-08-29 22:41:34,585] INFO: ================
+[2025-08-29 22:41:34,585] INFO: Действие: Изображение 'Folder.jpg' (сохранено как 'a84e626f4a0d47d8a1e24d3e57cc56b1.jpg') успешно загружено. Ссылка: /images/a84e626f4a0d47d8a1e24d3e57cc56b1.jpg
+[2025-08-29 22:42:14,812] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:42:31,066] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:42:31,068] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:42:31,200] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:42:31,509] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:42:31,556] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:42:31,836] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:42:31,836] WARNING: Действие: Файл не найден: /static/dog1.png
+[2025-08-29 22:42:36,535] INFO: ====POST-запрос====
+[2025-08-29 22:42:36,535] INFO: Метод: POST
+[2025-08-29 22:42:36,535] INFO: Путь и параметры: /upload
+[2025-08-29 22:42:36,535] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:42:36,535] INFO: ===================
+[2025-08-29 22:42:36,535] INFO: === HTTP HEADERS ===
+[2025-08-29 22:42:36,535] INFO: Host: localhost:8000
+[2025-08-29 22:42:36,535] INFO: Connection: keep-alive
+[2025-08-29 22:42:36,535] INFO: Content-Length: 41635
+[2025-08-29 22:42:36,535] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:42:36,535] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:42:36,536] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:42:36,536] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryDw7EeKvoog1VY140
+[2025-08-29 22:42:36,536] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:42:36,536] INFO: Accept: */*
+[2025-08-29 22:42:36,536] INFO: Origin: http://localhost:8000
+[2025-08-29 22:42:36,536] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:42:36,536] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:42:36,536] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:42:36,536] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:42:36,536] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:42:36,536] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:42:36,536] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:42:36,536] INFO: ====================
+[2025-08-29 22:42:36,542] INFO: === BODY (first 500 bytes) ===
+[2025-08-29 22:42:36,555] INFO: ==============================
+[2025-08-29 22:42:36,555] INFO: ====self.headers.get('Content-Type')====
+[2025-08-29 22:42:36,555] INFO: multipart/form-data; boundary=----WebKitFormBoundaryDw7EeKvoog1VY140
+[2025-08-29 22:42:36,555] INFO: ========================================
+[2025-08-29 22:42:36,555] INFO: ====boundary====
+[2025-08-29 22:42:36,555] INFO: ----WebKitFormBoundaryDw7EeKvoog1VY140
+[2025-08-29 22:42:36,555] INFO: ================
+[2025-08-29 22:42:36,556] INFO: Действие: Изображение 'Folder.jpg' (сохранено как 'e3ee873dd34a466c89807c93dd0a7b16.jpg') успешно загружено. Ссылка: /images/e3ee873dd34a466c89807c93dd0a7b16.jpg
+[2025-08-29 22:44:40,913] INFO: Сервер остановлен.
+[2025-08-29 22:45:08,876] INFO: Сервер запущен на порту 8000
+[2025-08-29 22:45:13,327] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:45:13,481] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 22:45:13,591] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 22:45:13,842] INFO: Действие: Отдан статический файл: /
+[2025-08-29 22:45:13,908] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 22:45:13,909] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 22:45:22,929] INFO: ====POST-запрос====
+[2025-08-29 22:45:22,929] INFO: Метод: POST
+[2025-08-29 22:45:22,930] INFO: Путь и параметры: /upload
+[2025-08-29 22:45:22,930] INFO: Версия протокола: HTTP/1.1
+[2025-08-29 22:45:22,930] INFO: ===================
+[2025-08-29 22:45:22,930] INFO: === HTTP HEADERS ===
+[2025-08-29 22:45:22,930] INFO: Host: localhost:8000
+[2025-08-29 22:45:22,930] INFO: Connection: keep-alive
+[2025-08-29 22:45:22,930] INFO: Content-Length: 41635
+[2025-08-29 22:45:22,930] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 22:45:22,930] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0 (Edition Yx 03)
+[2025-08-29 22:45:22,930] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 22:45:22,930] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryAQx8JqbuPa9FPbJc
+[2025-08-29 22:45:22,930] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 22:45:22,930] INFO: Accept: */*
+[2025-08-29 22:45:22,930] INFO: Origin: http://localhost:8000
+[2025-08-29 22:45:22,930] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 22:45:22,931] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 22:45:22,931] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 22:45:22,931] INFO: Referer: http://localhost:8000/
+[2025-08-29 22:45:22,931] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 22:45:22,931] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 22:45:22,931] INFO: Cookie: adminer_key=84032a0f1aa5818a1aa864552616454f; adminer_permanent=; adminer_settings=; adminer_engine=; adminer_sid=0f71f35ebf73a1a42546eac784f6f691
+[2025-08-29 22:45:22,931] INFO: ====================
+[2025-08-29 22:45:22,936] INFO: === BODY (first 500 bytes) ===
+[2025-08-29 22:45:22,936] INFO: b'------WebKitFormBoundaryAQx8JqbuPa9FPbJc\r\nContent-Disposition: form-data; name="file"; filename="Folder.jpg"\r\nContent-Type: image/jpeg\r\n\r\n\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01'
+[2025-08-29 22:45:22,936] INFO: ==============================
+[2025-08-29 22:45:22,937] INFO: ====self.headers.get('Content-Type')====
+[2025-08-29 22:45:22,937] INFO: multipart/form-data; boundary=----WebKitFormBoundaryAQx8JqbuPa9FPbJc
+[2025-08-29 22:45:22,937] INFO: ========================================
+[2025-08-29 22:45:22,937] INFO: ====boundary====
+[2025-08-29 22:45:22,937] INFO: ----WebKitFormBoundaryAQx8JqbuPa9FPbJc
+[2025-08-29 22:45:22,937] INFO: ================
+[2025-08-29 22:45:22,937] INFO: Действие: Изображение 'Folder.jpg' (сохранено как '406b521b762b4841b1708fefbe5d174f.jpg') успешно загружено. Ссылка: /images/406b521b762b4841b1708fefbe5d174f.jpg
+[2025-08-29 22:58:53,298] INFO: Сервер остановлен.
