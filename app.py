@@ -28,7 +28,7 @@ if not os.path.exists(STATIC_FILES_DIR):
 
 # Настройка логирования с ротацией
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='[%(asctime)s] %(levelname)s: %(message)s',
     handlers=[
         RotatingFileHandler(
@@ -51,7 +51,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
     def _get_content_type(self, file_path):
-        extension = os.path.splitext(file_path)[1].lower()
+        extension = os.path.splitext(file_path)[1].lower() # получаем расширение
         content_types = {
             '.html': 'text/html',
             '.css': 'text/css',
@@ -70,13 +70,6 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
         request_path = parsed_path.path
-
-        # Добавляем логирование для отладки
-        logging.debug(f"self.path: {self.path}")
-        logging.debug(f"parsed_path: {parsed_path}")
-        logging.debug(f"request_path: {request_path}")
-        logging.debug(f"parsed_path.query: {parsed_path.query}")
-        logging.debug(f"parsed_path.fragment: {parsed_path.fragment}")
 
         # Главная страница
         if request_path == '/':
@@ -120,6 +113,13 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
         if parsed_path.path == '/upload':
             content_length = int(self.headers.get('Content-Length', 0))
+
+            logging.info('??????????????????????????')
+            # Логируем все заголовки
+            logging.info("=== HTTP HEADERS ===")
+            for key, value in self.headers.items():
+                logging.info(f"{key}: {value}")
+            logging.info('??????????????????????????')
 
             # Проверка размера файла
             if content_length > MAX_FILE_SIZE:

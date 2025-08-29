@@ -129,3 +129,179 @@
 [2025-08-29 10:33:58,601] DEBUG: parsed_path.fragment: 
 [2025-08-29 10:33:58,602] WARNING: Действие: Файл не найден: /static/bird.png
 [2025-08-29 10:48:51,151] INFO: Сервер остановлен.
+[2025-08-29 11:19:42,973] INFO: Сервер запущен на порту 8000
+[2025-08-29 11:19:48,862] INFO: =============================================
+[2025-08-29 11:19:48,862] INFO: self.path: /
+[2025-08-29 11:19:48,863] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 11:19:48,863] INFO: request_path: /
+[2025-08-29 11:19:48,864] INFO: parsed_path.query: 
+[2025-08-29 11:19:48,864] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:48,865] INFO: =============================================
+[2025-08-29 11:19:48,868] INFO: Действие: Отдан статический файл: /
+[2025-08-29 11:19:49,052] INFO: =============================================
+[2025-08-29 11:19:49,053] INFO: self.path: /style.css
+[2025-08-29 11:19:49,054] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/style.css', params='', query='', fragment='')
+[2025-08-29 11:19:49,054] INFO: request_path: /style.css
+[2025-08-29 11:19:49,055] INFO: parsed_path.query: 
+[2025-08-29 11:19:49,056] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:49,056] INFO: =============================================
+[2025-08-29 11:19:49,063] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 11:19:49,120] INFO: =============================================
+[2025-08-29 11:19:49,120] INFO: self.path: /script.js
+[2025-08-29 11:19:49,121] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/script.js', params='', query='', fragment='')
+[2025-08-29 11:19:49,121] INFO: request_path: /script.js
+[2025-08-29 11:19:49,122] INFO: parsed_path.query: 
+[2025-08-29 11:19:49,123] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:49,124] INFO: =============================================
+[2025-08-29 11:19:49,126] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 11:19:49,435] INFO: =============================================
+[2025-08-29 11:19:49,439] INFO: self.path: /
+[2025-08-29 11:19:49,442] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 11:19:49,444] INFO: request_path: /
+[2025-08-29 11:19:49,447] INFO: parsed_path.query: 
+[2025-08-29 11:19:49,449] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:49,451] INFO: =============================================
+[2025-08-29 11:19:49,454] INFO: Действие: Отдан статический файл: /
+[2025-08-29 11:19:49,464] INFO: =============================================
+[2025-08-29 11:19:49,465] INFO: self.path: /assets/images/dog2.png
+[2025-08-29 11:19:49,466] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/assets/images/dog2.png', params='', query='', fragment='')
+[2025-08-29 11:19:49,467] INFO: request_path: /assets/images/dog2.png
+[2025-08-29 11:19:49,468] INFO: parsed_path.query: 
+[2025-08-29 11:19:49,469] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:49,470] INFO: =============================================
+[2025-08-29 11:19:49,470] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 11:19:49,472] INFO: =============================================
+[2025-08-29 11:19:49,473] INFO: self.path: /static/dog1.png
+[2025-08-29 11:19:49,473] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/static/dog1.png', params='', query='', fragment='')
+[2025-08-29 11:19:49,474] INFO: request_path: /static/dog1.png
+[2025-08-29 11:19:49,474] INFO: parsed_path.query: 
+[2025-08-29 11:19:49,475] INFO: parsed_path.fragment: 
+[2025-08-29 11:19:49,476] INFO: =============================================
+[2025-08-29 11:19:49,476] WARNING: Действие: Файл не найден: /static/dog1.png
+[2025-08-29 11:20:48,429] INFO: Действие: Изображение 'IMG_20250623_141702_930.jpg' (сохранено как '6db2a51e9db04f0485f0928467752ad4.jpg') успешно загружено. Ссылка: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:14,748] INFO: =============================================
+[2025-08-29 11:21:14,750] INFO: self.path: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:14,751] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/images/6db2a51e9db04f0485f0928467752ad4.jpg', params='', query='', fragment='')
+[2025-08-29 11:21:14,752] INFO: request_path: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:14,753] INFO: parsed_path.query: 
+[2025-08-29 11:21:14,755] INFO: parsed_path.fragment: 
+[2025-08-29 11:21:14,756] INFO: =============================================
+[2025-08-29 11:21:14,759] INFO: Действие: Отдано изображение: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:39,228] INFO: =============================================
+[2025-08-29 11:21:39,229] INFO: self.path: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:39,229] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/images/6db2a51e9db04f0485f0928467752ad4.jpg', params='', query='', fragment='')
+[2025-08-29 11:21:39,230] INFO: request_path: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:21:39,230] INFO: parsed_path.query: 
+[2025-08-29 11:21:39,231] INFO: parsed_path.fragment: 
+[2025-08-29 11:21:39,231] INFO: =============================================
+[2025-08-29 11:21:39,232] INFO: Действие: Отдано изображение: /images/6db2a51e9db04f0485f0928467752ad4.jpg
+[2025-08-29 11:22:03,875] INFO: Сервер остановлен.
+[2025-08-29 11:25:43,150] INFO: Сервер запущен на порту 8000
+[2025-08-29 11:25:49,095] INFO: =============================================
+[2025-08-29 11:25:49,096] INFO: self.path: /
+[2025-08-29 11:25:49,097] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 11:25:49,097] INFO: request_path: /
+[2025-08-29 11:25:49,098] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,098] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,099] INFO: =============================================
+[2025-08-29 11:25:49,099] INFO: file_path: static\index.html
+[2025-08-29 11:25:49,101] INFO: Действие: Отдан статический файл: /
+[2025-08-29 11:25:49,128] INFO: =============================================
+[2025-08-29 11:25:49,130] INFO: self.path: /style.css
+[2025-08-29 11:25:49,131] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/style.css', params='', query='', fragment='')
+[2025-08-29 11:25:49,132] INFO: request_path: /style.css
+[2025-08-29 11:25:49,132] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,133] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,134] INFO: =============================================
+[2025-08-29 11:25:49,134] INFO: file_path: static\style.css
+[2025-08-29 11:25:49,137] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 11:25:49,344] INFO: =============================================
+[2025-08-29 11:25:49,344] INFO: self.path: /script.js
+[2025-08-29 11:25:49,345] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/script.js', params='', query='', fragment='')
+[2025-08-29 11:25:49,346] INFO: request_path: /script.js
+[2025-08-29 11:25:49,346] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,347] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,347] INFO: =============================================
+[2025-08-29 11:25:49,348] INFO: file_path: static\script.js
+[2025-08-29 11:25:49,350] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 11:25:49,472] INFO: =============================================
+[2025-08-29 11:25:49,475] INFO: self.path: /
+[2025-08-29 11:25:49,478] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 11:25:49,480] INFO: request_path: /
+[2025-08-29 11:25:49,482] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,483] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,485] INFO: =============================================
+[2025-08-29 11:25:49,487] INFO: file_path: static\index.html
+[2025-08-29 11:25:49,489] INFO: Действие: Отдан статический файл: /
+[2025-08-29 11:25:49,674] INFO: =============================================
+[2025-08-29 11:25:49,674] INFO: self.path: /assets/images/dog2.png
+[2025-08-29 11:25:49,675] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/assets/images/dog2.png', params='', query='', fragment='')
+[2025-08-29 11:25:49,675] INFO: request_path: /assets/images/dog2.png
+[2025-08-29 11:25:49,676] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,676] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,677] INFO: =============================================
+[2025-08-29 11:25:49,677] INFO: file_path: static\assets/images/dog2.png
+[2025-08-29 11:25:49,678] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 11:25:49,679] INFO: =============================================
+[2025-08-29 11:25:49,679] INFO: self.path: /static/bird.png
+[2025-08-29 11:25:49,680] INFO: parsed_path: ParseResult(scheme='', netloc='', path='/static/bird.png', params='', query='', fragment='')
+[2025-08-29 11:25:49,680] INFO: request_path: /static/bird.png
+[2025-08-29 11:25:49,681] INFO: parsed_path.query: 
+[2025-08-29 11:25:49,681] INFO: parsed_path.fragment: 
+[2025-08-29 11:25:49,682] INFO: =============================================
+[2025-08-29 11:25:49,683] INFO: file_path: static/bird.png
+[2025-08-29 11:25:49,683] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 11:32:26,677] INFO: Сервер остановлен.
+[2025-08-29 15:29:41,596] INFO: Сервер запущен на порту 8000
+[2025-08-29 15:29:54,671] INFO: ??????????????????????????
+[2025-08-29 15:29:54,671] INFO: Host: localhost:8000
+Connection: keep-alive
+Content-Length: 142924
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0
+sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryBvMlmPT0YyBn3V2o
+sec-ch-ua-mobile: ?0
+Accept: */*
+Origin: http://localhost:8000
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8000/
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: adminer_key=9524b2c89fc29104fb20915db7297248; adminer_sid=a9b7493e49bda8b1c748d49f68e9acbe
+
+
+[2025-08-29 15:29:54,681] INFO: ??????????????????????????
+[2025-08-29 15:29:54,758] INFO: Действие: Изображение '71780effdb9b41822ac43a7a67d68df3.jpg' (сохранено как 'f452e5a5c8354985a8919180853d23e2.jpg') успешно загружено. Ссылка: /images/f452e5a5c8354985a8919180853d23e2.jpg
+[2025-08-29 15:34:38,254] INFO: Сервер остановлен.
+[2025-08-29 15:34:41,680] INFO: Сервер запущен на порту 8000
+[2025-08-29 15:34:54,419] INFO: Действие: Отдан статический файл: /
+[2025-08-29 15:34:54,614] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 15:34:54,680] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 15:34:54,971] INFO: Действие: Отдан статический файл: /
+[2025-08-29 15:34:55,107] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 15:34:55,114] WARNING: Действие: Файл не найден: /static/dog2.png
+[2025-08-29 15:35:01,594] INFO: ??????????????????????????
+[2025-08-29 15:35:01,595] INFO: === HTTP HEADERS ===
+[2025-08-29 15:35:01,596] INFO: Host: localhost:8000
+[2025-08-29 15:35:01,596] INFO: Connection: keep-alive
+[2025-08-29 15:35:01,597] INFO: Content-Length: 142924
+[2025-08-29 15:35:01,597] INFO: sec-ch-ua-platform: "Windows"
+[2025-08-29 15:35:01,598] INFO: User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 OPR/120.0.0.0
+[2025-08-29 15:35:01,598] INFO: sec-ch-ua: "Opera";v="120", "Not-A.Brand";v="8", "Chromium";v="135"
+[2025-08-29 15:35:01,599] INFO: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryJo2sZq0McUY8MSl8
+[2025-08-29 15:35:01,599] INFO: sec-ch-ua-mobile: ?0
+[2025-08-29 15:35:01,600] INFO: Accept: */*
+[2025-08-29 15:35:01,600] INFO: Origin: http://localhost:8000
+[2025-08-29 15:35:01,601] INFO: Sec-Fetch-Site: same-origin
+[2025-08-29 15:35:01,601] INFO: Sec-Fetch-Mode: cors
+[2025-08-29 15:35:01,602] INFO: Sec-Fetch-Dest: empty
+[2025-08-29 15:35:01,602] INFO: Referer: http://localhost:8000/
+[2025-08-29 15:35:01,603] INFO: Accept-Encoding: gzip, deflate, br, zstd
+[2025-08-29 15:35:01,603] INFO: Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+[2025-08-29 15:35:01,604] INFO: Cookie: adminer_key=9524b2c89fc29104fb20915db7297248; adminer_sid=a9b7493e49bda8b1c748d49f68e9acbe
+[2025-08-29 15:35:01,604] INFO: ??????????????????????????
+[2025-08-29 15:35:01,663] INFO: Действие: Изображение '71780effdb9b41822ac43a7a67d68df3.jpg' (сохранено как '97a07374e06c41778d2c7e0756d3e7c7.jpg') успешно загружено. Ссылка: /images/97a07374e06c41778d2c7e0756d3e7c7.jpg
+[2025-08-29 15:44:02,676] INFO: Сервер остановлен.
