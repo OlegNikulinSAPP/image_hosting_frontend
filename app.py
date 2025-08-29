@@ -28,21 +28,17 @@ if not os.path.exists(STATIC_FILES_DIR):
 
 # Настройка логирования с ротацией
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='[%(asctime)s] %(levelname)s: %(message)s',
     handlers=[
         RotatingFileHandler(
             os.path.join(LOG_DIR, 'app.log'),
-            maxBytes=1024*1024,  # 1 MB
+            maxBytes=1024 * 1024,  # 1 MB
             backupCount=5
         ),
         logging.StreamHandler()  # Вывод в консоль
     ]
 )
-
-# ===========================================
-#
-# ===========================================
 
 
 class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
@@ -74,6 +70,13 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
         request_path = parsed_path.path
+
+        # Добавляем логирование для отладки
+        logging.debug(f"self.path: {self.path}")
+        logging.debug(f"parsed_path: {parsed_path}")
+        logging.debug(f"request_path: {request_path}")
+        logging.debug(f"parsed_path.query: {parsed_path.query}")
+        logging.debug(f"parsed_path.fragment: {parsed_path.fragment}")
 
         # Главная страница
         if request_path == '/':

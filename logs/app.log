@@ -29,3 +29,103 @@
 [2025-08-29 07:36:21,981] WARNING: Действие: Файл не найден: /static/dog3.png
 [2025-08-29 07:36:22,166] WARNING: Действие: Файл не найден: /favicon.ico
 [2025-08-29 07:36:32,186] INFO: Сервер остановлен.
+[2025-08-29 10:26:39,758] INFO: Сервер запущен на порту 8000
+[2025-08-29 10:26:44,375] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:26:45,319] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:26:45,322] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:26:45,664] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:26:45,730] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:26:45,732] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 10:26:50,980] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:26:51,007] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:26:51,247] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:26:51,340] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:26:51,572] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:26:51,573] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 10:27:32,784] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:27:32,803] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:27:33,045] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:27:33,123] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:27:33,358] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:27:33,362] WARNING: Действие: Файл не найден: /static/dog2.png
+[2025-08-29 10:27:46,570] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:27:46,587] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:27:46,837] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:27:46,910] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:27:47,158] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:27:47,159] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 10:28:38,651] INFO: Сервер остановлен.
+[2025-08-29 10:29:03,190] INFO: Сервер запущен на порту 8000
+[2025-08-29 10:29:09,233] DEBUG: self.path: /
+[2025-08-29 10:29:09,234] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 10:29:09,234] DEBUG: request_path: /
+[2025-08-29 10:29:09,235] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,235] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,237] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:29:09,251] DEBUG: self.path: /style.css
+[2025-08-29 10:29:09,252] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/style.css', params='', query='', fragment='')
+[2025-08-29 10:29:09,252] DEBUG: request_path: /style.css
+[2025-08-29 10:29:09,253] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,253] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,255] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:29:09,495] DEBUG: self.path: /script.js
+[2025-08-29 10:29:09,495] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/script.js', params='', query='', fragment='')
+[2025-08-29 10:29:09,496] DEBUG: request_path: /script.js
+[2025-08-29 10:29:09,497] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,497] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,499] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:29:09,574] DEBUG: self.path: /assets/images/dog2.png
+[2025-08-29 10:29:09,574] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/assets/images/dog2.png', params='', query='', fragment='')
+[2025-08-29 10:29:09,575] DEBUG: request_path: /assets/images/dog2.png
+[2025-08-29 10:29:09,575] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,576] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,576] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:29:09,824] DEBUG: self.path: /
+[2025-08-29 10:29:09,824] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 10:29:09,825] DEBUG: request_path: /
+[2025-08-29 10:29:09,825] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,826] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,827] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:29:09,830] DEBUG: self.path: /static/dog3.png
+[2025-08-29 10:29:09,831] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/static/dog3.png', params='', query='', fragment='')
+[2025-08-29 10:29:09,832] DEBUG: request_path: /static/dog3.png
+[2025-08-29 10:29:09,832] DEBUG: parsed_path.query: 
+[2025-08-29 10:29:09,833] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:29:09,834] WARNING: Действие: Файл не найден: /static/dog3.png
+[2025-08-29 10:33:58,005] DEBUG: self.path: /
+[2025-08-29 10:33:58,005] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 10:33:58,006] DEBUG: request_path: /
+[2025-08-29 10:33:58,006] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,007] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,008] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:33:58,029] DEBUG: self.path: /style.css
+[2025-08-29 10:33:58,030] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/style.css', params='', query='', fragment='')
+[2025-08-29 10:33:58,030] DEBUG: request_path: /style.css
+[2025-08-29 10:33:58,031] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,031] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,032] INFO: Действие: Отдан статический файл: /style.css
+[2025-08-29 10:33:58,267] DEBUG: self.path: /script.js
+[2025-08-29 10:33:58,268] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/script.js', params='', query='', fragment='')
+[2025-08-29 10:33:58,268] DEBUG: request_path: /script.js
+[2025-08-29 10:33:58,269] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,269] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,270] INFO: Действие: Отдан статический файл: /script.js
+[2025-08-29 10:33:58,347] DEBUG: self.path: /
+[2025-08-29 10:33:58,348] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/', params='', query='', fragment='')
+[2025-08-29 10:33:58,348] DEBUG: request_path: /
+[2025-08-29 10:33:58,349] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,349] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,351] INFO: Действие: Отдан статический файл: /
+[2025-08-29 10:33:58,592] DEBUG: self.path: /assets/images/dog2.png
+[2025-08-29 10:33:58,593] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/assets/images/dog2.png', params='', query='', fragment='')
+[2025-08-29 10:33:58,593] DEBUG: request_path: /assets/images/dog2.png
+[2025-08-29 10:33:58,594] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,594] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,595] WARNING: Действие: Файл не найден: /assets/images/dog2.png
+[2025-08-29 10:33:58,597] DEBUG: self.path: /static/bird.png
+[2025-08-29 10:33:58,599] DEBUG: parsed_path: ParseResult(scheme='', netloc='', path='/static/bird.png', params='', query='', fragment='')
+[2025-08-29 10:33:58,600] DEBUG: request_path: /static/bird.png
+[2025-08-29 10:33:58,601] DEBUG: parsed_path.query: 
+[2025-08-29 10:33:58,601] DEBUG: parsed_path.fragment: 
+[2025-08-29 10:33:58,602] WARNING: Действие: Файл не найден: /static/bird.png
+[2025-08-29 10:48:51,151] INFO: Сервер остановлен.
