@@ -1,4 +1,3 @@
-# app.py - полная реализация
 import http.server
 import socketserver
 import logging
@@ -35,6 +34,11 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+
+
+# ===========================================
+#
+# ===========================================
 
 
 class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
