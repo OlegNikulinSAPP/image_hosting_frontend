@@ -32,12 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
         heroPage.style.backgroundImage = `url(${randomImage})`;
     }
 
-
     gotoAppButton.addEventListener('click', () => {
         heroPage.classList.add('hidden');
         mainAppPage.classList.remove('hidden');
     });
-
 
     // Навигация
     navButtons.forEach(button => {
@@ -72,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                const fullUrl = `${window.location.origin}${data.url}`;
+                const fullUrl = `${API_BASE_URL}${data.url}`;
                 urlInput.value = fullUrl;
 
                 // Сохраняем в localStorage
