@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadError = document.getElementById('upload-error');
     const urlInput = document.getElementById('url-input');
     const copyBtn = document.getElementById('copy-btn');
+
     const imageList = document.getElementById('image-list');
     const imageItemTemplate = document.getElementById('image-item-template');
 
@@ -31,10 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
         heroPage.style.backgroundImage = `url(${randomImage})`;
     }
 
+
     gotoAppButton.addEventListener('click', () => {
         heroPage.classList.add('hidden');
         mainAppPage.classList.remove('hidden');
     });
+
 
     // Навигация
     navButtons.forEach(button => {
