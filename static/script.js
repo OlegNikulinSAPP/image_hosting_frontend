@@ -190,44 +190,65 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
     }
 
-    // Загрузка списка изображений
-    function loadImagesList() {
-        imageList.innerHTML = '';
+   // Загрузка списка изображений
+function loadImagesList() {
+    // Очищаем контейнер списка изображений перед загрузкой новых данных
+    // Это предотвращает дублирование элементов при повторном вызове функции
+    imageList.innerHTML = '';
 
-        if (uploadedImages.length === 0) {
-            imageList.innerHTML = `
-                <div style="text-align:center; color: var(--text-muted); padding: 40px;">
-                    <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-                    <p>No images uploaded yet.</p>
-                    <p style="font-size: 14px; margin-top: 8px;">Upload your first image to get started!</p>
-                </div>
-            `;
-            return;
-        }
-
-        uploadedImages.forEach(image => {
-            const templateClone = imageItemTemplate.content.cloneNode(true);
-            const listItem = templateClone.querySelector('.image-item');
-
-            listItem.dataset.id = image.id;
-            listItem.querySelector('.image-item__name span').textContent = image.name;
-
-            const urlLink = listItem.querySelector('.image-item__url a');
-            urlLink.href = image.fullUrl;
-            urlLink.textContent = image.fullUrl;
-            urlLink.target = '_blank';
-            urlLink.rel = 'noopener noreferrer';
-
-            // Добавляем информацию о размере
-            const sizeInfo = document.createElement('small');
-            sizeInfo.textContent = ` (${formatFileSize(image.size)})`;
-            sizeInfo.style.color = 'var(--text-muted)';
-            sizeInfo.style.marginLeft = '8px';
-            listItem.querySelector('.image-item__name').appendChild(sizeInfo);
-
-            imageList.appendChild(templateClone);
-        });
+    // Проверяем, есть ли загруженные изображения для отображения
+    if (uploadedImages.length === 0) {
+        // Если изображений нет, показываем сообщение о пустом состоянии
+        // Это улучшает пользовательский опыт, предоставляя понятную обратную связь
+        imageList.innerHTML = `
+            <div style="text-align:center; color: var(--text-muted); padding: 40px;">
+                <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+                <p>No images uploaded yet.</p>
+                <p style="font-size: 14px; margin-top: 8px;">Upload your first image to get started!</p>
+            </div>
+        `;
+        // Прерываем выполнение функции, так как дальше нечего обрабатывать
+        return;
     }
+
+    // Если изображения есть, перебираем массив uploadedImages
+    // Для каждого изображения создаем элемент списка на основе шаблона
+    uploadedImages.forEach(image => {
+        // Клонируем содержимое HTML-шаблона для элемента изображения
+        // cloneNode(true) создает полную копию всех вложенных элементов
+        const templateClone = imageItemTemplate.content.cloneNode(true);
+
+        // Находим основной элемент списка в клоне шаблона
+        const listItem = templateClone.querySelector('.image-item');
+
+        // Устанавливаем уникальный идентификатор элемента через data-атрибут
+        // Это позволит later идентифицировать элемент для операций (например, удаления)
+        listItem.dataset.id = image.id;
+
+        // Заполняем элемент данными об изображении:
+        // Устанавливаем имя файла в соответствующий элемент
+        listItem.querySelector('.image-item__name span').textContent = image.name;
+
+        // Находим ссылку на изображение и заполняем её данными
+        const urlLink = listItem.querySelector('.image-item__url a');
+        urlLink.href = image.fullUrl; // URL для перехода при клике
+        urlLink.textContent = image.fullUrl; // Текст ссылки
+        urlLink.target = '_blank'; // Открывать ссылку в новой вкладке
+        urlLink.rel = 'noopener noreferrer'; // Защита от уязвимостей безопасности
+
+        // Создаем элемент для отображения размера файла
+        const sizeInfo = document.createElement('small');
+        sizeInfo.textContent = ` (${formatFileSize(image.size)})`; // Форматируем размер
+        sizeInfo.style.color = 'var(--text-muted)'; // Используем CSS-переменную для цвета
+        sizeInfo.style.marginLeft = '8px'; // Добавляем отступ слева
+
+        // Добавляем информацию о размере к элементу с именем файла
+        listItem.querySelector('.image-item__name').appendChild(sizeInfo);
+
+        // Добавляем готовый элемент в контейнер списка изображений
+        imageList.appendChild(templateClone);
+    });
+}
 
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';
