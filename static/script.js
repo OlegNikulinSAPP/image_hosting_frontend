@@ -63,12 +63,47 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('file', file);
 
+        // Логируем FormData
+        console.log('FormData contents:');
+        for (let [key, value] of formData.entries()) {
+            console.log(`🔑 ${key}:`);
+            console.log('  📝 Имя файла:', value.name);
+            console.log('  📦 MIME-тип:', value.type);
+            console.log('  📊 Размер:', value.size, 'байт');
+            console.log('  🗂️  Тип объекта:', value instanceof File ? 'File' : typeof value);
+            console.log('---');
+        }
+
         fetch('/upload', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+        // Логируем всю информацию о Response
+            console.log('=== RESPONSE DETAILS ===');
+            console.log('URL:', response.url);
+            console.log('Status:', response.status);
+            console.log('Status Text:', response.statusText);
+            console.log('OK:', response.ok);
+            console.log('Redirected:', response.redirected);
+            console.log('Type:', response.type);
+
+            // Логируем заголовки ответа
+            console.log('Headers:');
+            response.headers.forEach((value, name) => {
+            console.log(`  ${name}: ${value}`);
+            });
+
+    // Возвращаем promise с JSON для дальнейшей обработки
+    return response.json();
+})
         .then(data => {
+            // Логируем преобразованные данные из формата JSON в объект JavaScript
+            console.log('=== RESPONSE JavaScript ===');
+            for (let [key, value] of Object.entries(data)) {
+                console.log(key, value);
+            }
+
             if (data.status === 'success') {
                 const fullUrl = `${API_BASE_URL}${data.url}`;
                 urlInput.value = fullUrl;
