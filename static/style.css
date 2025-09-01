@@ -49,7 +49,7 @@ body {
   элемента равной 100% высоты видимой области окна браузера
   (viewport height)*/
   background-color: var(--dark-bg);
-  background-image: url('/images/dog2.png');
+  background-image: url('/static/images/dog2.png');
   background-size: cover; /*используется для масштабирования фонового
   изображения так, чтобы оно полностью покрывало контейнер, сохраняя при этом
   пропорции изображения*/

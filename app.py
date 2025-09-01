@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Конфигурация
 STATIC_FILES_DIR = 'static'
-UPLOAD_DIR = 'images'
+UPLOAD_DIR = 'static/images'
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
 LOG_DIR = 'logs'
@@ -207,7 +207,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                 with open(target_path, 'wb') as f:
                     f.write(file_data)
 
-                file_url = f"/images/{unique_filename}"
+                file_url = f"static/images/{unique_filename}"
                 logging.info(
                     f"Действие: Изображение '{filename}' (сохранено как '{unique_filename}') успешно загружено. Ссылка: {file_url}")
 
