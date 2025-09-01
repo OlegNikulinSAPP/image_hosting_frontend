@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(button)
     }
 
+
     const uploadView = document.getElementById('upload-view');
     const imagesView = document.getElementById('images-view');
     const dropZone = document.getElementById('upload-drop-zone');

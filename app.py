@@ -179,6 +179,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                         file_data = file_content
                         break
 
+
                 if not file_data or not filename:
                     logging.warning("Действие: Ошибка загрузки - файл не найден в запросе")
                     self._set_headers(400, 'application/json')
