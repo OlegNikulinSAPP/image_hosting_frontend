@@ -1,9 +1,19 @@
 // script.js - обновленная версия
 document.addEventListener('DOMContentLoaded', () => {
+    // Проверяем событие DOMContentLoaded
+    console.log('Страница загружена!')
+
     const heroPage = document.getElementById('hero-page');
     const mainAppPage = document.getElementById('main-app-page');
     const gotoAppButton = document.getElementById('goto-app-button');
     const navButtons = document.querySelectorAll('.app-nav__button');
+
+    // Мониторим работу document.querySelectorAll('.app-nav__button');
+    console.log('Обнаруженные кнопки navButtons (NodeList):')
+    for (const button of navButtons) {
+        console.log(button)
+    }
+
     const uploadView = document.getElementById('upload-view');
     const imagesView = document.getElementById('images-view');
     const dropZone = document.getElementById('upload-drop-zone');
@@ -16,22 +26,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageList = document.getElementById('image-list');
     const imageItemTemplate = document.getElementById('image-item-template');
 
-    const API_BASE_URL = window.location.origin;
-    let uploadedImages = [];
+    const API_BASE_URL = window.location.origin; // базовый URL сервера
 
+    // Другие полезные свойства window.location
+    console.log('Другие полезные свойства window.location:')
+    console.log('базовый URL сервера:', window.location.origin)
+    console.log('полный URL:', window.location.href )
+    console.log('протокол (http:, https:):', window.location.protocol )
+    console.log('хост с портом:', window.location.host)
+    console.log('только имя хоста:', window.location.hostname)
+    console.log('порт:', window.location.port)
+    console.log('путь:', window.location.pathname)
+    console.log('параметры запроса (?key=value):', window.location.search)
+    console.log('якорь (#section):', window.location.hash)
+
+    let uploadedImages = []; // массив для хранения информации о загруженных изображениях
+
+    // Функция установки фонового изображения
     function setRandomHeroImage() {
         const images = [
-            'static/bird.png',
-            'static/cat.png',
-            'static/dog1.png',
-            'static/dog2.png',
-            'static/dog3.png'
+            'images/bird.png',
+            'images/cat.png',
+            'images/dog1.png',
+            'images/dog2.png',
+            'images/dog3.png'
         ];
         const randomIndex = Math.floor(Math.random() * images.length);
         const randomImage = images[randomIndex];
         heroPage.style.backgroundImage = `url(${randomImage})`;
     }
 
+    // Переход к основному приложению
     gotoAppButton.addEventListener('click', () => {
         heroPage.classList.add('hidden');
         mainAppPage.classList.remove('hidden');
