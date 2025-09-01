@@ -173,14 +173,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // Работа с localStorage
+    // Работа с localStorage (читаем из localStorage)
     function loadImagesFromLocalStorage() {
-        const storedImages = localStorage.getItem('uploadedImages');
+        storedImages = localStorage.getItem('uploadedImages')
+
         if (storedImages) {
             try {
                 uploadedImages = JSON.parse(storedImages);
+                console.log('Загружено изображений:', uploadedImages.length);
             } catch (e) {
-                console.error("Ошибка при парсинге 'uploadedImages':", e);
+                console.log('Ошибка при парсинге "uploadedImages"', e);
                 uploadedImages = [];
             }
         }
@@ -199,7 +201,6 @@ function loadImagesList() {
     // Проверяем, есть ли загруженные изображения для отображения
     if (uploadedImages.length === 0) {
         // Если изображений нет, показываем сообщение о пустом состоянии
-        // Это улучшает пользовательский опыт, предоставляя понятную обратную связь
         imageList.innerHTML = `
             <div style="text-align:center; color: var(--text-muted); padding: 40px;">
                 <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
@@ -222,12 +223,13 @@ function loadImagesList() {
         const listItem = templateClone.querySelector('.image-item');
 
         // Устанавливаем уникальный идентификатор элемента через data-атрибут
-        // Это позволит later идентифицировать элемент для операций (например, удаления)
         listItem.dataset.id = image.id;
+        console.log('Текущему элементу списка установлен номер:', image.id)
 
         // Заполняем элемент данными об изображении:
         // Устанавливаем имя файла в соответствующий элемент
         listItem.querySelector('.image-item__name span').textContent = image.name;
+        console.log('Элементу номер', image.id, 'установлено имя:', image.name);
 
         // Находим ссылку на изображение и заполняем её данными
         const urlLink = listItem.querySelector('.image-item__url a');
