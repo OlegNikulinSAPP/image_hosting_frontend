@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Конфигурация
 STATIC_FILES_DIR = 'static'
-UPLOAD_DIR = 'static/images'
+UPLOAD_DIR = 'images'
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
 LOG_DIR = 'logs'
@@ -48,6 +48,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Access-Control-Allow-Credentials', 'true')
         self.end_headers()
 
     def _get_content_type(self, file_path):
@@ -90,6 +91,11 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                 content_type = self._get_content_type(file_path)
                 with open(file_path, 'rb') as f:
                     content = f.read()
+
+                # Перед отправкой ответа
+                logging.info(f"Отправляемый контент: {content[:100]}...")  # Первые 100 символов
+                logging.info(f"Content-Type: {content_type}")
+                logging.info(f"Размер контента: {len(content)} байт")
 
                 self._set_headers(200, content_type)
                 self.wfile.write(content)
@@ -207,7 +213,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                 with open(target_path, 'wb') as f:
                     f.write(file_data)
 
-                file_url = f"static/images/{unique_filename}"
+                file_url = f"/images/{unique_filename}"
                 logging.info(
                     f"Действие: Изображение '{filename}' (сохранено как '{unique_filename}') успешно загружено. Ссылка: {file_url}")
 
