@@ -110,98 +110,25 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(b"404 Not Found")
 
     def do_POST(self):
+        # 9
         parsed_path = urlparse(self.path)
 
         if parsed_path.path == '/upload':
-            content_length = int(self.headers.get('Content-Length', 0))
+            content_length = int(self.headers.get('Content_Length', 0))
 
-            # Проверка размера файла
             if content_length > MAX_FILE_SIZE:
-                logging.warning(
-                    f"Действие: Ошибка загрузки - файл превышает максимальный размер ({content_length} bytes)")
+                logging.warning(f'Действие: Файл превышает максимальный размер ({content_length} bytes)')
                 self._set_headers(400, 'application/json')
                 response = {
-                    "status": "error",
-                    "message": f"Файл превышает максимальный размер {MAX_FILE_SIZE / (1024 * 1024):.0f}MB."
-                }
-                self.wfile.write(json.dumps(response).encode('utf-8'))
-                return
-
-            # Чтение данных
-            try:
-                post_data = self.rfile.read(content_length)
-
-                # Парсим multipart/form-data (упрощенная версия)
-                # В реальном проекте лучше использовать библиотеку для парсинга multipart
-                boundary = self.headers.get('Content-Type').split('boundary=')[-1]
-                parts = post_data.split(b'--' + boundary.encode())
-
-                file_data = None
-                filename = None
-
-                for part in parts:
-                    if b'filename="' in part:
-                        headers_data, file_content = part.split(b'\r\n\r\n', 1)
-                        file_content = file_content.rstrip(b'\r\n--')
-
-                        # Извлекаем имя файла
-                        filename_line = [line for line in headers_data.split(b'\r\n') if b'filename="' in line][0]
-                        filename = filename_line.decode().split('filename="')[1].split('"')[0]
-
-                        file_data = file_content
-                        break
-
-                if not file_data or not filename:
-                    logging.warning("Действие: Ошибка загрузки - файл не найден в запросе")
-                    self._set_headers(400, 'application/json')
-                    response = {"status": "error", "message": "Файл не найден в запросе"}
-                    self.wfile.write(json.dumps(response).encode('utf-8'))
-                    return
-
-                # Проверка расширения файла
-                file_extension = os.path.splitext(filename)[1].lower()
-                if file_extension not in ALLOWED_EXTENSIONS:
-                    logging.warning(f"Действие: Ошибка загрузки - неподдерживаемый формат файла ({filename})")
-                    self._set_headers(400, 'application/json')
-                    response = {
-                        "status": "error",
-                        "message": f"Неподдерживаемый формат файла. Допустимы: {', '.join(ALLOWED_EXTENSIONS)}"
-                    }
-                    self.wfile.write(json.dumps(response).encode('utf-8'))
-                    return
-
-                # Генерация уникального имени файла
-                unique_filename = f"{uuid.uuid4().hex}{file_extension}"
-                target_path = os.path.join(UPLOAD_DIR, unique_filename)
-
-                # Сохранение файла
-                with open(target_path, 'wb') as f:
-                    f.write(file_data)
-
-                file_url = f"/images/{unique_filename}"
-                logging.info(
-                    f"Действие: Изображение '{filename}' (сохранено как '{unique_filename}') успешно загружено. Ссылка: {file_url}")
-
-                self._set_headers(200, 'application/json')
-                response = {
-                    "status": "success",
-                    "message": "Файл успешно загружен",
-                    "filename": unique_filename,
-                    "original_name": filename,
-                    "url": file_url,
-                    "size": len(file_data)
+                    'status': 'error',
+                    'message': f'Файл превышает максимальный размер ({MAX_FILE_SIZE / (1024 * 1024):0f} MB)'
                 }
                 self.wfile.write(json.dumps(response).encode('utf-8'))
 
-            except Exception as e:
-                logging.error(f"Ошибка при обработке загрузки: {e}")
-                self._set_headers(500, 'application/json')
-                response = {"status": "error", "message": "Произошла ошибка при обработке файла."}
-                self.wfile.write(json.dumps(response).encode('utf-8'))
+
         else:
-            self._set_headers(404, 'text/plain')
-            self.wfile.write(b"404 Not Found")
-
+            self._set_headers(404, 'text/html')
+            self.wfile.write(b'404 Not Found')
 
 def run_server(server_class=http.server.HTTPServer, handler_class=ImageHostingHandler, port=8000):
     server_address = ('', port)
