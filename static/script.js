@@ -1,20 +1,8 @@
-// script.js - обновленная версия
 document.addEventListener('DOMContentLoaded', () => {
-    // Проверяем событие DOMContentLoaded
-    console.log('Страница загружена!')
-
     const heroPage = document.getElementById('hero-page');
     const mainAppPage = document.getElementById('main-app-page');
     const gotoAppButton = document.getElementById('goto-app-button');
     const navButtons = document.querySelectorAll('.app-nav__button');
-
-    // Мониторим работу document.querySelectorAll('.app-nav__button');
-    console.log('Обнаруженные кнопки navButtons (NodeList):')
-    for (const button of navButtons) {
-        console.log(button)
-    }
-
-
     const uploadView = document.getElementById('upload-view');
     const imagesView = document.getElementById('images-view');
     const dropZone = document.getElementById('upload-drop-zone');
@@ -28,18 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageItemTemplate = document.getElementById('image-item-template');
 
     const API_BASE_URL = window.location.origin; // базовый URL сервера
-
-    // Другие полезные свойства window.location
-    console.log('Другие полезные свойства window.location:')
-    console.log('базовый URL сервера:', window.location.origin)
-    console.log('полный URL:', window.location.href )
-    console.log('протокол (http:, https:):', window.location.protocol )
-    console.log('хост с портом:', window.location.host)
-    console.log('только имя хоста:', window.location.hostname)
-    console.log('порт:', window.location.port)
-    console.log('путь:', window.location.pathname)
-    console.log('параметры запроса (?key=value):', window.location.search)
-    console.log('якорь (#section):', window.location.hash)
 
     let uploadedImages = []; // массив для хранения информации о загруженных изображениях
 
@@ -89,47 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        // Логируем FormData
-        console.log('FormData contents:');
-        for (let [key, value] of formData.entries()) {
-            console.log(`🔑 ${key}:`);
-            console.log('  📝 Имя файла:', value.name);
-            console.log('  📦 MIME-тип:', value.type);
-            console.log('  📊 Размер:', value.size, 'байт');
-            console.log('  🗂️  Тип объекта:', value instanceof File ? 'File' : typeof value);
-            console.log('---');
-        }
-
         fetch('/upload', {
             method: 'POST',
             body: formData
         })
         .then(response => {
-        // Логируем всю информацию о Response
-            console.log('=== RESPONSE DETAILS ===');
-            console.log('URL:', response.url);
-            console.log('Status:', response.status);
-            console.log('Status Text:', response.statusText);
-            console.log('OK:', response.ok);
-            console.log('Redirected:', response.redirected);
-            console.log('Type:', response.type);
-
-            // Логируем заголовки ответа
-            console.log('Headers:');
-            response.headers.forEach((value, name) => {
-            console.log(`  ${name}: ${value}`);
-            });
-
-    // Возвращаем promise с JSON для дальнейшей обработки
-    return response.json();
-})
+            return response.json();
+        })
         .then(data => {
-            // Логируем преобразованные данные из формата JSON в объект JavaScript
-            console.log('=== RESPONSE JavaScript ===');
-            for (let [key, value] of Object.entries(data)) {
-                console.log(key, value);
-            }
-
+            console.log(data)
             if (data.status === 'success') {
                 const fullUrl = `${API_BASE_URL}${data.url}`;
                 urlInput.value = fullUrl;
@@ -206,9 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (storedImages) {
             try {
                 uploadedImages = JSON.parse(storedImages);
-                console.log('Загружено изображений:', uploadedImages.length);
             } catch (e) {
-                console.log('Ошибка при парсинге "uploadedImages"', e);
                 uploadedImages = [];
             }
         }
@@ -250,12 +192,10 @@ function loadImagesList() {
 
         // Устанавливаем уникальный идентификатор элемента через data-атрибут
         listItem.dataset.id = image.id;
-        console.log('Текущему элементу списка установлен номер:', image.id)
 
         // Заполняем элемент данными об изображении:
         // Устанавливаем имя файла в соответствующий элемент
         listItem.querySelector('.image-item__name span').textContent = image.name;
-        console.log('Элементу номер', image.id, 'установлено имя:', image.name);
 
         // Находим ссылку на изображение и заполняем её данными
         const urlLink = listItem.querySelector('.image-item__url a');

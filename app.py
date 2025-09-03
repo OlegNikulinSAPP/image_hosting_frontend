@@ -195,6 +195,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
 
 def run_server(server_class=http.server.HTTPServer, handler_class=ImageHostingHandler, port=8000):
+    """Запускает HTTP-сервер для хостинга изображений"""
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     logging.info(f"Сервер запущен на порту {port}")
