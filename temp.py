@@ -12,8 +12,8 @@ from datetime import datetime
 # Конфигурация
 STATIC_FILES_DIR = 'static'
 UPLOAD_DIR = 'images'
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
-ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
+MAX_FILES_SIZE = 5 * 1024 * 1024
+ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.ico']
 LOG_DIR = 'logs'
 
 # Создание директорий если их нет
@@ -33,32 +33,36 @@ logging.basicConfig(
     handlers=[
         RotatingFileHandler(
             os.path.join(LOG_DIR, 'app.log'),
-            maxBytes=1024 * 1024,  # 1 MB
+            maxBytes=1024 * 1024,
             backupCount=5
         ),
-        logging.StreamHandler()  # Вывод в консоль
+        logging.StreamHandler()
     ]
 )
 
 
 class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
+    """Обработчик HTTP-запросов для хостинга изображений"""
     def _set_headers(self, status_code=200, content_type='text/html'):
+        """Устанавливает базовые HTTP-заголовки ответа"""
         self.send_response(status_code)
         self.send_header('Content-type', content_type)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Method', 'GET, POST, OPTIONS')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.end_headers()
 
     def _get_content_type(self, file_path):
-        extension = os.path.splitext(file_path)[1].lower() # получаем расширение
+        """Определяет MIME-тип файла на основе его расширения"""
+        extension = os.path.splitext(file_path)[1].lower()
+
         content_types = {
             '.html': 'text/html',
             '.css': 'text/css',
             '.js': 'application/javascript',
-            '.png': 'image/png',
-            '.jpg': 'image/jpeg',
+            '.pmg': 'image/png',
+            '.jpg': 'image/jpg',
             '.jpeg': 'image/jpeg',
             '.gif': 'image/gif',
             '.ico': 'image/x-icon'
@@ -66,9 +70,11 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         return content_types.get(extension, 'application/octet-stream')
 
     def do_OPTIONS(self):
-        self._set_headers(200)
+        """Обрабатывает HTTP OPTIONS запросы"""
+        self._set_headers()
 
     def do_GET(self):
+        """Обрабатывает HTTP GET запросы"""
         parsed_path = urlparse(self.path)
         request_path = parsed_path.path
 
@@ -77,7 +83,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             file_path = os.path.join(STATIC_FILES_DIR, 'index.html')
         # Статические файлы
         elif request_path.startswith('/static/'):
-            file_path = request_path[1:]  # Убираем первый слеш
+            file_path = request_path[1:]
         # Изображения
         elif request_path.startswith('/images/'):
             filename = request_path.split('/')[-1]
@@ -85,7 +91,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         else:
             file_path = os.path.join(STATIC_FILES_DIR, request_path.lstrip('/'))
 
-        # Проверяем существование файла
+        # Проверка существования файла
         if os.path.exists(file_path) and os.path.isfile(file_path):
             try:
                 content_type = self._get_content_type(file_path)
@@ -95,37 +101,105 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                 self._set_headers(200, content_type)
                 self.wfile.write(content)
 
-                if request_path.startswith('/images/'):
-                    logging.info(f"Действие: Отдано изображение: {request_path}")
+                if request_path.startswith('images/'):
+                    logging.info(f'Действие: Отдано изображение: {request_path}')
                 else:
-                    logging.info(f"Действие: Отдан статический файл: {request_path}")
-
+                    logging.info(f'Действие: Отдан статический файл: {request_path}')
             except Exception as e:
-                logging.error(f"Ошибка при отдаче файла {file_path}: {e}")
+                logging.error(f'Ошибка при отдаче файла {file_path}: {e}')
                 self._set_headers(500, 'text/plain')
-                self.wfile.write(b"500 Internal Server Error")
+                self.wfile.write(b'500 Internal Server Error')
         else:
-            logging.warning(f"Действие: Файл не найден: {request_path}")
+            logging.warning(f'Действие: Файл не найден: {request_path}')
             self._set_headers(404, 'text/plain')
-            self.wfile.write(b"404 Not Found")
+            self.wfile.write(b'404 Not Found')
 
     def do_POST(self):
-        # 9
+        """Обрабатывает HTTP POST запросы"""
         parsed_path = urlparse(self.path)
 
         if parsed_path.path == '/upload':
-            content_length = int(self.headers.get('Content_Length', 0))
+            content_length = int(self.headers.get('Content-length', 0))
 
-            if content_length > MAX_FILE_SIZE:
-                logging.warning(f'Действие: Файл превышает максимальный размер ({content_length} bytes)')
+            if content_length > MAX_FILES_SIZE:
+                logging.warning(
+                    f'Действие: Превышен максимальный размер ({content_length} bytes)'
+                )
                 self._set_headers(400, 'application/json')
                 response = {
                     'status': 'error',
-                    'message': f'Файл превышает максимальный размер ({MAX_FILE_SIZE / (1024 * 1024):0f} MB)'
+                    'message': f'Превышен размер файла {MAX_FILES_SIZE / (1024 * 1024):.0f}MB'
+                }
+                self.wfile.write(json.dumps(response).encode('utf-8'))
+                return
+
+            try:
+                post_data = self.rfile.read(content_length)
+
+                boundary = self.headers.get('Content-Type').split('boundary=')[-1]
+                parts = post_data.split(b'--' + boundary.encode())
+
+                file_data = None
+                filename = None
+
+                for part in parts:
+                    if b'filename="' in part:
+                        headers_data, file_content = part.split(b'\r\n\r\n', 1)
+                        file_content = file_content.rstrip(b'\r\n--')
+
+                        file_line = [line for line in headers_data.split(b'\r\n') if b'filename="' in line][0]
+                        filename = file_line.decode().split('filename="')[1].split('"')[0]
+
+                        file_data = file_content
+                        break
+
+                if not file_data or not filename:
+                    logging.warning('Действие: ошибка загрузки - файл не найден в запросе')
+                    self._set_headers(400, 'application/json')
+                    response = {'status': 'error', 'message': 'Файл не найден в запросе'}
+                    self.wfile.write(json.dumps(response).encode('utf-8'))
+                    return
+
+                file_extension = os.path.splitext(filename)[1].lower()
+                if file_extension not in ALLOWED_EXTENSIONS:
+                    logging.warning(f'Действие: Ошибка загрузки - неподдерживаемые формат файла ({file_extension})')
+                    self._set_headers(400, 'application/json')
+                    response = {
+                        'status': 'error',
+                        'message': f'Неподдерживаемый формат файла, допустимы: {', '.join(ALLOWED_EXTENSIONS)}'
+                    }
+                    self.wfile.write(json.dumps(response).encode('utf-8'))
+                    return
+
+                unique_filename = f'{uuid.uuid4().hex}{file_extension}'
+                target_path = os.path.join(UPLOAD_DIR, unique_filename)
+
+                with open(target_path, 'wb') as f:
+                    f.write(file_data)
+
+                file_url = f'/images/{unique_filename}'
+                logging.info(
+                    f'Действие: Изображение {filename} сохранено как {unique_filename}, ссылка: {file_url}'
+                )
+                self._set_headers(200, 'application/json')
+                response = {
+                    'status': 'success',
+                    'message': 'Файл успешно загружен',
+                    'filename': unique_filename,
+                    'original_name': filename,
+                    'url': file_url,
+                    'size': len(file_data)
                 }
                 self.wfile.write(json.dumps(response).encode('utf-8'))
 
-
+            except Exception as e:
+                logging.error(f'Ошибка при обработке загрузки {e}')
+                self._set_headers(500, 'application/json')
+                response = {
+                    'status': 'error',
+                    'message': 'Произошла ошибка при обработке файла'
+                }
+                self.wfile.write(json.dumps(response).encode('utf-8'))
         else:
             self._set_headers(404, 'text/html')
             self.wfile.write(b'404 Not Found')
