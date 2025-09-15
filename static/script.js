@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция установки фонового изображения
     function setRandomHeroImage() {
         const images = [
-            'static/images/bird.png',
-            'static/images/cat.png',
-            'static/images/dog1.png',
-            'static/images/dog2.png',
-            'static/images/dog3.png'
+            '/images/bird.png',
+            '/images/cat.png',
+            '/images/dog1.png',
+            '/images/dog2.png',
+            '/images/dog3.png'
         ];
         const randomIndex = Math.floor(Math.random() * images.length);
         const randomImage = images[randomIndex];

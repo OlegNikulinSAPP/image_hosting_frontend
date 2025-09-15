@@ -1,13 +1,13 @@
 import http.server
-import socketserver
 import logging
 from logging.handlers import RotatingFileHandler
 import json
 import os
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse
 import uuid
-import time
-from datetime import datetime
+
+from PIL import Image
+import io
 
 # Конфигурация
 STATIC_FILES_DIR = 'static'
@@ -15,6 +15,7 @@ UPLOAD_DIR = 'images'
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
 LOG_DIR = 'logs'
+MAX_IMAGE_DIMENSION = 1200  # Максимальный размер изображения
 
 # Создание директорий если их нет
 if not os.path.exists(UPLOAD_DIR):
@@ -52,7 +53,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
     def _get_content_type(self, file_path):
-        extension = os.path.splitext(file_path)[1].lower()  # получаем расширение
+        extension = os.path.splitext(file_path)[1].lower()
         content_types = {
             '.html': 'text/html',
             '.css': 'text/css',
@@ -69,45 +70,11 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         self._set_headers(200)
 
     def do_GET(self):
-        parsed_path = urlparse(self.path)
-        request_path = parsed_path.path
-
-        # Главная страница
-        if request_path == '/':
-            file_path = os.path.join(STATIC_FILES_DIR, 'index.html')
-        # Статические файлы
-        elif request_path.startswith('/static/'):
-            file_path = request_path[1:]  # Убираем первый слеш
-        # Изображения
-        elif request_path.startswith('/images/'):
-            filename = request_path.split('/')[-1]
-            file_path = os.path.join(UPLOAD_DIR, filename)
-        else:
-            file_path = os.path.join(STATIC_FILES_DIR, request_path.lstrip('/'))
-
-        # Проверяем существование файла
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            try:
-                content_type = self._get_content_type(file_path)
-                with open(file_path, 'rb') as f:
-                    content = f.read()
-
-                self._set_headers(200, content_type)
-                self.wfile.write(content)
-
-                if request_path.startswith('/images/'):
-                    logging.info(f"Действие: Отдано изображение: {request_path}")
-                else:
-                    logging.info(f"Действие: Отдан статический файл: {request_path}")
-
-            except Exception as e:
-                logging.error(f"Ошибка при отдаче файла {file_path}: {e}")
-                self._set_headers(500, 'text/plain')
-                self.wfile.write(b"500 Internal Server Error")
-        else:
-            logging.warning(f"Действие: Файл не найден: {request_path}")
-            self._set_headers(404, 'text/plain')
-            self.wfile.write(b"404 Not Found")
+        logging.warning(
+            f"Действие: Неожиданный GET запрос: {self.path}. Возможно, Nginx не настроен корректно "
+            f"или это ошибка клиента.")
+        self._set_headers(404, 'text/plain')
+        self.wfile.write(b"404 Not Found (Handled by Nginx for static files, or unexpected backend request)")
 
     def do_POST(self):
         parsed_path = urlparse(self.path)
@@ -117,7 +84,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
             if content_length > MAX_FILE_SIZE:
                 logging.warning(
-                    f'Деуствие: Превышен максимальный размер ({content_length} bytes)'
+                    f'Действие: Превышен максимальный размер ({content_length} bytes)'
                 )
                 self._set_headers(400, 'application/json')
                 response = {
@@ -159,7 +126,40 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
                     logging.warning(f'Действие: Ошибка загрузки - неподдерживаемый формат файла ({file_extension})')
                     self._set_headers(400, 'application/json')
                     response = {'status': 'error',
-                                'message': f'Неподдерживаемый формат файла, допустимы: {', '.join(ALLOWED_EXTENSIONS)}'}
+                                'message': f'Неподдерживаемый формат файла, допустимы: {", ".join(ALLOWED_EXTENSIONS)}'}
+                    self.wfile.write(json.dumps(response).encode('utf-8'))
+                    return
+
+                # Обработка изображения с помощью Pillow
+                try:
+                    image = Image.open(io.BytesIO(file_data))
+
+                    # Конвертируем в RGB если нужно (для JPEG)
+                    if image.mode in ('RGBA', 'P'):
+                        image = image.convert('RGB')
+
+                    # Изменяем размер если изображение слишком большое
+                    if image.width > MAX_IMAGE_DIMENSION or image.height > MAX_IMAGE_DIMENSION:
+                        image.thumbnail((MAX_IMAGE_DIMENSION, MAX_IMAGE_DIMENSION), Image.Resampling.LANCZOS)
+
+                    # Сохраняем обработанное изображение
+                    output = io.BytesIO()
+
+                    # Выбираем формат сохранения в зависимости от исходного формата
+                    if file_extension in ['.jpg', '.jpeg']:
+                        image.save(output, format='JPEG', quality=85)
+                    elif file_extension == '.png':
+                        image.save(output, format='PNG', optimize=True)
+                    elif file_extension == '.gif':
+                        image.save(output, format='GIF')
+
+                    processed_data = output.getvalue()
+                    file_data = processed_data
+
+                except Exception as e:
+                    logging.error(f'Ошибка при обработке изображения: {e}')
+                    self._set_headers(400, 'application/json')
+                    response = {'status': 'error', 'message': 'Некорректное изображение'}
                     self.wfile.write(json.dumps(response).encode('utf-8'))
                     return
 

@@ -1,4 +1,3 @@
-# Dockerfile
 FROM python:3.12-slim as builder
 
 # Установка системных зависимостей

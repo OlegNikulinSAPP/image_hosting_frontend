@@ -4,16 +4,12 @@
     <meta charset="utf-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Сервер изображений</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
     <body>
         <section id="hero-page" class="hero-page">
               <div class="hero-content">
-              <!--
-              Это универсальный HTML-тег-контейнер, который используется для
-              группировки элементов и применения стилей или скриптов.
-              -->
                   <h2 class="hero-title">Upload Photos</h2>
                   <p class="hero-subtitle">Upload selfies, mems, or any fun pictures here</p>
                   <button id="goto-app-button" class="hero-button">TAIL-ENT SHOWCASE</button>
@@ -21,57 +17,25 @@
         </section>
 
         <main id="main-app-page" class="main-app hidden">
-        <!--
-        Это семантический тег, который обозначает основное содержимое страницы
-        (уникальный контент, не включающий повторяющиеся элементы, такие как
-        шапка, подвал или боковая панель).
-        -->
             <div class="app-container">
                 <header class="app-header">
-                <!--
-                Тег <header></header> — это семантический HTML-элемент,
-                который представляет собой шапку (верхнюю часть) страницы
-                или раздела.
-                -->
                     <h1 class="app-title">Upload Photos</h1>
                     <p class="app-subtitle">Upload selfies, memes, or any fun pictures here.</p>
                 </header>
                 <nav class="app-nav">
-                <!--
-                Тег <nav> — это семантический HTML-элемент для основной
-                навигации по сайту.
-                Основное назначение:
-                Обёртка для главного меню сайта
-                Группировка навигационных ссылок (ссылки на разделы, соцсети, поиск)
-                Важен для SEO и доступности (скринридеры распознают навигацию)
-                -->
                     <button data-view="upload" class="app-nav__button active">Upload</button>
-                    <!--
-                    Data-view="upload" Кнопка связана с разделом/вкладкой «Upload».
-                    JavaScript может использовать это значение для переключения
-                    между разделами интерфейса.
-                    -->
                     <button data-view="images" class="app-nav__button">Images</button>
                 </nav>
                 <div id="app-views">
                     <div id="upload-view">
                         <div id="upload-drop-zone" class="upload-drop-zone">
                             <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                            <!--
-                            <i> - исторически использовался для курсива, сейчас
-                            часто применяется для иконок
-                            fas - стиль иконки (Solid)
-                            fa-cloud-upload-alt - конкретная иконка "облако с загрузкой"
-                            upload-icon - ваш кастомный класс для дополнительного стилевания
-                            -->
                             <p>Select a file or drag and drop here</p>
                             <p class="upload-hint">Only support .jpg, .png and .gif. Maximum file size is 5MB</p>
                             <p id="upload-error" class="upload-error hidden">Upload failed</p>
                         </div>
                         <input type="file" id="file-input" class="hidden">
-                        <!--type="file" - специфичный input для выбора файлов-->
                         <button id="browse-btn" class="browse-btn">Browse your file</button>
-
                         <div class="current-upload">
                             <h2>Current Upload</h2>
                             <div class="url-container">
@@ -83,31 +47,12 @@
 
                     <div id="images-view" class="hidden">
                       <ul id="image-list" class="image-list">
-                      <!--Пустой список для загрузки изображений-->
                       </ul>
                       <template id="image-item-template">
-                      <!--
-                      <template> — это HTML-элемент для создания шаблонов
-                      разметки, которые:
-                      Не отображаются на странице
-                      Не загружают ресурсы (изображения, стили)
-                      Клонируются через JavaScript при необходимости
-                      -->
                           <li class="image-item">
                               <div class="image-item__name">
                                   <i class="fas fa-file-image"></i>
                                   <span>file-name.jpg</span>
-                                  <!--
-                                  <span> — это строчный (inline) HTML-тег,
-                                  который используется для:
-                                  Группировки мелких текстовых элементов
-                                  Применения стилей к части текста (через CSS или JS)
-                                  Добавления служебных атрибутов (например, data-*, aria-*)
-                                  Основные особенности
-                                  Строчный элемент — не переносит содержимое на новую строку
-                                  Не имеет семантического значения (в отличие от <strong>, <em>)
-                                  Пустой по умолчанию — не добавляет стилей или отступов
-                                  -->
                               </div>
                               <div class="image-item__url">
                                   <a href="#" target="_blank">https://sharefile.xyz/file.jpg</a>
@@ -122,6 +67,6 @@
             </div>
         </main>
 
-          <script src="script.js"></script>
+          <script src="/script.js"></script>
     </body>
 </html>
