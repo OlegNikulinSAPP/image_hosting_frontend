@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageList = document.getElementById('image-list');
     const imageItemTemplate = document.getElementById('image-item-template');
 
-    const API_BASE_URL = window.location.origin; // базовый URL сервера
+    const API_BASE_URL = window.location.origin;
 
-    let uploadedImages = []; // массив для хранения информации о загруженных изображениях
+    let uploadedImages = [];
 
     // Функция установки фонового изображения
     function setRandomHeroImage() {
@@ -162,13 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // Загрузка списка изображений
 function loadImagesList() {
-    // Очищаем контейнер списка изображений перед загрузкой новых данных
-    // Это предотвращает дублирование элементов при повторном вызове функции
     imageList.innerHTML = '';
 
-    // Проверяем, есть ли загруженные изображения для отображения
     if (uploadedImages.length === 0) {
-        // Если изображений нет, показываем сообщение о пустом состоянии
         imageList.innerHTML = `
             <div style="text-align:center; color: var(--text-muted); padding: 40px;">
                 <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
@@ -176,44 +172,27 @@ function loadImagesList() {
                 <p style="font-size: 14px; margin-top: 8px;">Upload your first image to get started!</p>
             </div>
         `;
-        // Прерываем выполнение функции, так как дальше нечего обрабатывать
         return;
     }
 
-    // Если изображения есть, перебираем массив uploadedImages
-    // Для каждого изображения создаем элемент списка на основе шаблона
     uploadedImages.forEach(image => {
-        // Клонируем содержимое HTML-шаблона для элемента изображения
-        // cloneNode(true) создает полную копию всех вложенных элементов
         const templateClone = imageItemTemplate.content.cloneNode(true);
-
-        // Находим основной элемент списка в клоне шаблона
         const listItem = templateClone.querySelector('.image-item');
-
-        // Устанавливаем уникальный идентификатор элемента через data-атрибут
         listItem.dataset.id = image.id;
-
-        // Заполняем элемент данными об изображении:
-        // Устанавливаем имя файла в соответствующий элемент
         listItem.querySelector('.image-item__name span').textContent = image.name;
-
-        // Находим ссылку на изображение и заполняем её данными
         const urlLink = listItem.querySelector('.image-item__url a');
-        urlLink.href = image.fullUrl; // URL для перехода при клике
-        urlLink.textContent = image.fullUrl; // Текст ссылки
-        urlLink.target = '_blank'; // Открывать ссылку в новой вкладке
-        urlLink.rel = 'noopener noreferrer'; // Защита от уязвимостей безопасности
+        urlLink.href = image.fullUrl;
+        urlLink.textContent = image.fullUrl;
+        urlLink.target = '_blank';
+        urlLink.rel = 'noopener noreferrer';
 
         // Создаем элемент для отображения размера файла
         const sizeInfo = document.createElement('small');
-        sizeInfo.textContent = ` (${formatFileSize(image.size)})`; // Форматируем размер
-        sizeInfo.style.color = 'var(--text-muted)'; // Используем CSS-переменную для цвета
-        sizeInfo.style.marginLeft = '8px'; // Добавляем отступ слева
+        sizeInfo.textContent = ` (${formatFileSize(image.size)})`;
+        sizeInfo.style.color = 'var(--text-muted)';
+        sizeInfo.style.marginLeft = '8px';
 
-        // Добавляем информацию о размере к элементу с именем файла
         listItem.querySelector('.image-item__name').appendChild(sizeInfo);
-
-        // Добавляем готовый элемент в контейнер списка изображений
         imageList.appendChild(templateClone);
     });
 }

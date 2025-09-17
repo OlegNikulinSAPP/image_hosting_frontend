@@ -5,8 +5,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - images_volume:/app/images
-      - logs_volume:/app/logs
+      - ./images:/app/images
+      - ./logs:/app/logs
       - ./static:/app/static
     environment:
       - PYTHONUNBUFFERED=1
@@ -21,8 +21,9 @@ services:
       - "8080:8080"
     volumes:
       - ./static:/app/static:ro
+      - ./images:/app/images:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - nginx_logs:/var/log/nginx
+      - ./nginx_logs:/var/log/nginx
     depends_on:
       - app
     restart: unless-stopped
@@ -30,10 +31,6 @@ services:
       - app_network
 
 volumes:
-  images_volume:
-    driver: local
-  logs_volume:
-    driver: local
   nginx_logs:
     driver: local
 
