@@ -5,6 +5,8 @@ import os
 import uuid
 from PIL import Image
 import io
+import psycopg2
+from urllib.parse import urlparse, parse_qs
 
 # Импортируем настройку логгера из отдельного файла
 from logger_setup import setup_logging
@@ -17,12 +19,111 @@ ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
 LOG_DIR = 'logs'
 MAX_IMAGE_DIMENSION = 1200
 
+# Конфигурация БД
+DB_CONFIG = {
+    'host': os.getenv('DB_HOST', 'db'),
+    'port': os.getenv('DB_PORT', '5432'),
+    'dbname': os.getenv('DB_NAME', 'images_db'),
+    'user': os.getenv('DB_USER', 'postgres'),
+    'password': os.getenv('DB_PASSWORD', 'password')
+}
+
+
+def get_db_connection():
+    return psycopg2.connect(**DB_CONFIG)
+
 
 def setup_directories():
     """Создает необходимые директории если они не существуют"""
-    for directory in [UPLOAD_DIR, LOG_DIR, STATIC_FILES_DIR]:
+    for directory in [UPLOAD_DIR, LOG_DIR, STATIC_FILES_DIR, 'backups']:
         if not os.path.exists(directory):
             os.makedirs(directory)
+
+
+def save_image_metadata(filename, original_name, size, file_type):
+    """Сохраняет метаданные изображения в базу данных"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            "INSERT INTO images (filename, original_name, size, file_type) VALUES (%s, %s, %s, %s)",
+            (filename, original_name, size, file_type)
+        )
+        conn.commit()
+        logging.info(f"Метаданные сохранены в БД: {filename}")
+    except Exception as e:
+        logging.error(f"Ошибка сохранения метаданных: {e}")
+        raise
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def get_images_list(page=1, per_page=10):
+    """Получает список изображений с пагинацией"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        offset = (page - 1) * per_page
+        cursor.execute(
+            "SELECT id, filename, original_name, size, upload_time, file_type FROM images ORDER BY upload_time DESC LIMIT %s OFFSET %s",
+            (per_page, offset)
+        )
+        images = cursor.fetchall()
+
+        cursor.execute("SELECT COUNT(*) FROM images")
+        total_count = cursor.fetchone()[0]
+
+        return [
+            {
+                'id': img[0],
+                'filename': img[1],
+                'original_name': img[2],
+                'size': img[3],
+                'upload_time': img[4].isoformat(),
+                'file_type': img[5]
+            } for img in images
+        ], total_count
+    except Exception as e:
+        logging.error(f"Ошибка получения списка изображений: {e}")
+        raise
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def delete_image(image_id):
+    """Удаляет изображение из БД и файловой системы"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        # Получаем информацию об изображении
+        cursor.execute("SELECT filename FROM images WHERE id = %s", (image_id,))
+        result = cursor.fetchone()
+
+        if not result:
+            return False, "Изображение не найдено"
+
+        filename = result[0]
+        file_path = os.path.join(UPLOAD_DIR, filename)
+
+        # Удаляем из БД
+        cursor.execute("DELETE FROM images WHERE id = %s", (image_id,))
+        conn.commit()
+
+        # Удаляем файл
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            logging.info(f"Файл удален: {file_path}")
+
+        return True, "Изображение удалено"
+    except Exception as e:
+        conn.rollback()
+        logging.error(f"Ошибка удаления изображения: {e}")
+        raise
+    finally:
+        cursor.close()
+        conn.close()
 
 
 class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
@@ -31,7 +132,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header('Content-type', content_type)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE')
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
@@ -41,8 +142,90 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
         """Обрабатывает GET запросы"""
-        self._set_headers(404, 'text/plain')
-        self.wfile.write(b"404 Not Found")
+        parsed_path = urlparse(self.path)
+
+        if parsed_path.path == '/images-list':
+            self._handle_images_list(parsed_path.query)
+        elif parsed_path.path.startswith('/images/'):
+            self._serve_image(parsed_path.path)
+        else:
+            self._set_headers(404, 'text/plain')
+            self.wfile.write(b"404 Not Found")
+
+    def do_DELETE(self):
+        """Обрабатывает DELETE запросы"""
+        parsed_path = urlparse(self.path)
+        if parsed_path.path.startswith('/delete/'):
+            image_id = parsed_path.path.split('/')[-1]
+            self._handle_delete_image(image_id)
+        else:
+            self._set_headers(404, 'text/plain')
+            self.wfile.write(b"404 Not Found")
+
+    def _handle_images_list(self, query_string):
+        """Обрабатывает запрос списка изображений"""
+        try:
+            params = parse_qs(query_string)
+            page = int(params.get('page', [1])[0])
+            per_page = 10
+
+            images, total_count = get_images_list(page, per_page)
+
+            response = {
+                'images': images,
+                'pagination': {
+                    'page': page,
+                    'per_page': per_page,
+                    'total': total_count,
+                    'pages': (total_count + per_page - 1) // per_page
+                }
+            }
+
+            self._set_headers(200, 'application/json')
+            self.wfile.write(json.dumps(response).encode('utf-8'))
+        except Exception as e:
+            logging.error(f"Ошибка обработки списка изображений: {e}")
+            self._send_error_response(500, 'Ошибка сервера')
+
+    def _handle_delete_image(self, image_id):
+        """Обрабатывает удаление изображения"""
+        try:
+            success, message = delete_image(image_id)
+            if success:
+                response = {'status': 'success', 'message': message}
+                self._set_headers(200, 'application/json')
+            else:
+                response = {'status': 'error', 'message': message}
+                self._set_headers(404, 'application/json')
+
+            self.wfile.write(json.dumps(response).encode('utf-8'))
+        except Exception as e:
+            logging.error(f"Ошибка удаления изображения: {e}")
+            self._send_error_response(500, 'Ошибка сервера')
+
+    def _serve_image(self, path):
+        """Отдает изображения"""
+        filename = path.split('/')[-1]
+        file_path = os.path.join(UPLOAD_DIR, filename)
+
+        if os.path.exists(file_path):
+            self._set_headers(200, self._get_mime_type(filename))
+            with open(file_path, 'rb') as f:
+                self.wfile.write(f.read())
+        else:
+            self._set_headers(404, 'text/plain')
+            self.wfile.write(b"Image not found")
+
+    def _get_mime_type(self, filename):
+        """Определяет MIME-тип файла"""
+        ext = os.path.splitext(filename)[1].lower()
+        mime_types = {
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif'
+        }
+        return mime_types.get(ext, 'application/octet-stream')
 
     def _validate_file(self, filename, content_length):
         """Проверяет валидность файла"""
@@ -133,6 +316,9 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
             with open(target_path, 'wb') as f:
                 f.write(processed_data)
+
+            # Сохраняем метаданные в БД
+            save_image_metadata(unique_filename, filename, len(processed_data), file_extension[1:])
 
             file_url = f'/images/{unique_filename}'
             logging.info(f'Изображение сохранено: {filename} -> {unique_filename}')

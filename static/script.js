@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = window.location.origin;
 
     let uploadedImages = [];
+    let currentPage = 1;
+    let totalPages = 1;
 
     // Функция установки фонового изображения
     function setRandomHeroImage() {
@@ -78,22 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fullUrl = `${API_BASE_URL}${data.url}`;
                 urlInput.value = fullUrl;
 
-                // Сохраняем в localStorage
-                const imageInfo = {
-                    id: Date.now(),
-                    name: data.original_name,
-                    url: data.url,
-                    fullUrl: fullUrl,
-                    filename: data.filename,
-                    size: data.size,
-                    uploadedAt: new Date().toISOString()
-                };
-
-                uploadedImages.push(imageInfo);
-                saveImagesToLocalStorage();
-
                 // Показываем уведомление
                 showNotification('Файл успешно загружен!', 'success');
+
+                // Обновляем список изображений если мы на соответствующей вкладке
+                if (!imagesView.classList.contains('hidden')) {
+                    loadImagesList();
+                }
             } else {
                 uploadError.textContent = data.message;
                 uploadError.classList.remove('hidden');
@@ -143,28 +136,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // Работа с localStorage (читаем из localStorage)
-    function loadImagesFromLocalStorage() {
-        storedImages = localStorage.getItem('uploadedImages')
+   // Загрузка списка изображений с сервера
+function loadImagesList(page = 1) {
+    fetch(`/images-list?page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            displayImagesList(data.images, data.pagination);
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки списка изображений:', error);
+            showNotification('Ошибка загрузки списка изображений', 'error');
+        });
+}
 
-        if (storedImages) {
-            try {
-                uploadedImages = JSON.parse(storedImages);
-            } catch (e) {
-                uploadedImages = [];
-            }
-        }
-    }
-
-    function saveImagesToLocalStorage() {
-        localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
-    }
-
-   // Загрузка списка изображений
-function loadImagesList() {
+function displayImagesList(images, pagination) {
     imageList.innerHTML = '';
+    currentPage = pagination.page;
+    totalPages = pagination.pages;
 
-    if (uploadedImages.length === 0) {
+    if (images.length === 0) {
         imageList.innerHTML = `
             <div style="text-align:center; color: var(--text-muted); padding: 40px;">
                 <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
@@ -175,26 +165,122 @@ function loadImagesList() {
         return;
     }
 
-    uploadedImages.forEach(image => {
+    images.forEach(image => {
         const templateClone = imageItemTemplate.content.cloneNode(true);
         const listItem = templateClone.querySelector('.image-item');
         listItem.dataset.id = image.id;
-        listItem.querySelector('.image-item__name span').textContent = image.name;
+        listItem.querySelector('.image-item__name span').textContent = image.original_name;
+
         const urlLink = listItem.querySelector('.image-item__url a');
-        urlLink.href = image.fullUrl;
-        urlLink.textContent = image.fullUrl;
+        urlLink.href = `${API_BASE_URL}/images/${image.filename}`;
+        urlLink.textContent = `${API_BASE_URL}/images/${image.filename}`;
         urlLink.target = '_blank';
         urlLink.rel = 'noopener noreferrer';
 
-        // Создаем элемент для отображения размера файла
+        // Добавляем информацию о размере файла
         const sizeInfo = document.createElement('small');
         sizeInfo.textContent = ` (${formatFileSize(image.size)})`;
         sizeInfo.style.color = 'var(--text-muted)';
         sizeInfo.style.marginLeft = '8px';
-
         listItem.querySelector('.image-item__name').appendChild(sizeInfo);
+
+        // Добавляем информацию о дате загрузки
+        const dateInfo = document.createElement('div');
+        dateInfo.className = 'image-item__date';
+        dateInfo.textContent = new Date(image.upload_time).toLocaleString();
+        dateInfo.style.fontSize = '12px';
+        dateInfo.style.color = 'var(--text-muted)';
+        dateInfo.style.marginTop = '4px';
+        listItem.querySelector('.image-item__name').appendChild(dateInfo);
+
+        // Добавляем обработчик удаления
+        const deleteBtn = listItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => deleteImage(image.id));
+
         imageList.appendChild(templateClone);
     });
+
+    // Добавляем пагинацию
+    addPagination();
+}
+
+function addPagination() {
+    const paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination';
+    paginationContainer.style.cssText = `
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+    `;
+
+    // Кнопка "Назад"
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => loadImagesList(currentPage - 1));
+
+    // Информация о странице
+    const pageInfo = document.createElement('span');
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    pageInfo.style.cssText = `
+        padding: 8px 16px;
+        color: var(--text-muted);
+    `;
+
+    // Кнопка "Вперед"
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => loadImagesList(currentPage + 1));
+
+    // Стили для кнопок пагинации
+    const buttonStyle = `
+        padding: 8px 16px;
+        border: 1px solid var(--border-color);
+        background: white;
+        color: var(--primary-blue);
+        cursor: pointer;
+        border-radius: 4px;
+    `;
+
+    const disabledStyle = `
+        opacity: 0.5;
+        cursor: not-allowed;
+    `;
+
+    prevButton.style.cssText = buttonStyle;
+    nextButton.style.cssText = buttonStyle;
+
+    if (prevButton.disabled) prevButton.style.cssText += disabledStyle;
+    if (nextButton.disabled) nextButton.style.cssText += disabledStyle;
+
+    paginationContainer.appendChild(prevButton);
+    paginationContainer.appendChild(pageInfo);
+    paginationContainer.appendChild(nextButton);
+    imageList.appendChild(paginationContainer);
+}
+
+function deleteImage(imageId) {
+    if (confirm('Are you sure you want to delete this image?')) {
+        fetch(`/delete/${imageId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Image deleted successfully', 'success');
+                loadImagesList(currentPage);
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка удаления:', error);
+            showNotification('Error deleting image', 'error');
+        });
+    }
 }
 
     function formatFileSize(bytes) {
@@ -256,23 +342,7 @@ function loadImagesList() {
         }
     });
 
-    imageList.addEventListener('click', (e) => {
-        const deleteButton = e.target.closest('.delete-btn');
-        if (deleteButton) {
-            const listItem = e.target.closest('.image-item');
-            const imageId = parseInt(listItem.dataset.id, 10);
-
-            if (confirm('Are you sure you want to delete this image?')) {
-                uploadedImages = uploadedImages.filter(img => img.id !== imageId);
-                saveImagesToLocalStorage();
-                loadImagesList();
-                showNotification('Image deleted', 'success');
-            }
-        }
-    });
-
     // Инициализация
-    loadImagesFromLocalStorage();
     setRandomHeroImage();
 
     // Проверка соединения с сервером

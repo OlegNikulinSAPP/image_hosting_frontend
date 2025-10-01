@@ -1,3 +1,7 @@
+
+# .gitignore
+
+```gitignore
 # .gitignore
 
 # IDE
@@ -50,3 +54,15 @@ docker-compose.override.yml
 # Temporary files
 tmp/
 temp/
+
+# Database
+*.db
+*.sqlite3
+
+# Backups
+backups/*.sql
+!backups/.gitkeep
+
+# Uploaded images
+/images/*
+!/images/.gitkeep
