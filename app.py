@@ -8,6 +8,7 @@ import io
 import psycopg2
 from urllib.parse import urlparse, parse_qs
 
+from database import test_connection, get_db_connection, check_table_exists
 # Импортируем настройку логгера из отдельного файла
 from logger_setup import setup_logging
 
@@ -18,19 +19,6 @@ MAX_FILE_SIZE = 5 * 1024 * 1024
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
 LOG_DIR = 'logs'
 MAX_IMAGE_DIMENSION = 1200
-
-# Конфигурация БД
-DB_CONFIG = {
-    'host': os.getenv('DB_HOST', 'db'),
-    'port': os.getenv('DB_PORT', '5432'),
-    'dbname': os.getenv('DB_NAME', 'images_db'),
-    'user': os.getenv('DB_USER', 'postgres'),
-    'password': os.getenv('DB_PASSWORD', 'password')
-}
-
-
-def get_db_connection():
-    return psycopg2.connect(**DB_CONFIG)
 
 
 def setup_directories():
@@ -365,7 +353,31 @@ def run_server(server_class=http.server.HTTPServer, handler_class=ImageHostingHa
         logging.info("Сервер остановлен")
 
 
+def initialize_app():
+    """Инициализация приложения: проверяет БД"""
+    logging.info("Инициализация приложения...")
+
+    # 1. Тестируем подключение к БД
+    if test_connection():
+        logging.info("Подключение к базе данных успешно")
+
+        # 2. Проверяем, что таблица создана
+        if check_table_exists():
+            logging.info("Таблица 'images' существует")
+        else:
+            logging.error("Таблица 'images' не существует")
+            return False
+
+    else:
+        logging.info("Не удалось подключиться к базе данных. Проверьте настройки Docker Compose")
+
+    return True
+
+
 if __name__ == '__main__':
     setup_directories()
     setup_logging(LOG_DIR)
-    run_server()
+    if initialize_app():
+        run_server()
+    else:
+        logging.error("Не удалось инициализировать приложение")

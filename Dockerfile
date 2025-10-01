@@ -1,4 +1,4 @@
-FROM python:3.12-slim as builder
+FROM python:3.12-slim AS builder
 
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -25,6 +25,7 @@ WORKDIR /app
 RUN mkdir -p static images logs
 
 COPY --chown=appuser:appuser app.py .
+COPY --chown=appuser:appuser database.py .
 COPY --chown=appuser:appuser logger_setup.py .
 COPY --chown=appuser:appuser requirements.txt .
 COPY --chown=appuser:appuser static/ static/
