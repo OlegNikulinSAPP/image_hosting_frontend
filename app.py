@@ -5,7 +5,6 @@ import os
 import uuid
 from PIL import Image
 import io
-import psycopg2
 from urllib.parse import urlparse, parse_qs
 
 from database import test_connection, get_db_connection, check_table_exists
