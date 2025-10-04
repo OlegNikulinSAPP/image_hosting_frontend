@@ -1,20 +1,8 @@
-// script.js - обновленная версия
 document.addEventListener('DOMContentLoaded', () => {
-    // Проверяем событие DOMContentLoaded
-    console.log('Страница загружена!')
-
     const heroPage = document.getElementById('hero-page');
     const mainAppPage = document.getElementById('main-app-page');
     const gotoAppButton = document.getElementById('goto-app-button');
     const navButtons = document.querySelectorAll('.app-nav__button');
-
-    // Мониторим работу document.querySelectorAll('.app-nav__button');
-    console.log('Обнаруженные кнопки navButtons (NodeList):')
-    for (const button of navButtons) {
-        console.log(button)
-    }
-
-
     const uploadView = document.getElementById('upload-view');
     const imagesView = document.getElementById('images-view');
     const dropZone = document.getElementById('upload-drop-zone');
@@ -27,30 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageList = document.getElementById('image-list');
     const imageItemTemplate = document.getElementById('image-item-template');
 
-    const API_BASE_URL = window.location.origin; // базовый URL сервера
+    const API_BASE_URL = window.location.origin;
 
-    // Другие полезные свойства window.location
-    console.log('Другие полезные свойства window.location:')
-    console.log('базовый URL сервера:', window.location.origin)
-    console.log('полный URL:', window.location.href )
-    console.log('протокол (http:, https:):', window.location.protocol )
-    console.log('хост с портом:', window.location.host)
-    console.log('только имя хоста:', window.location.hostname)
-    console.log('порт:', window.location.port)
-    console.log('путь:', window.location.pathname)
-    console.log('параметры запроса (?key=value):', window.location.search)
-    console.log('якорь (#section):', window.location.hash)
-
-    let uploadedImages = []; // массив для хранения информации о загруженных изображениях
+    let uploadedImages = [];
+    let currentPage = 1;
+    let totalPages = 1;
 
     // Функция установки фонового изображения
     function setRandomHeroImage() {
         const images = [
-            'images/bird.png',
-            'images/cat.png',
-            'images/dog1.png',
-            'images/dog2.png',
-            'images/dog3.png'
+            '/static/images/bird.png',
+            '/static/images/cat.png',
+            '/static/images/dog1.png',
+            '/static/images/dog2.png',
+            '/static/images/dog3.png'
         ];
         const randomIndex = Math.floor(Math.random() * images.length);
         const randomImage = images[randomIndex];
@@ -89,67 +67,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        // Логируем FormData
-        console.log('FormData contents:');
-        for (let [key, value] of formData.entries()) {
-            console.log(`🔑 ${key}:`);
-            console.log('  📝 Имя файла:', value.name);
-            console.log('  📦 MIME-тип:', value.type);
-            console.log('  📊 Размер:', value.size, 'байт');
-            console.log('  🗂️  Тип объекта:', value instanceof File ? 'File' : typeof value);
-            console.log('---');
-        }
-
         fetch('/upload', {
             method: 'POST',
             body: formData
         })
         .then(response => {
-        // Логируем всю информацию о Response
-            console.log('=== RESPONSE DETAILS ===');
-            console.log('URL:', response.url);
-            console.log('Status:', response.status);
-            console.log('Status Text:', response.statusText);
-            console.log('OK:', response.ok);
-            console.log('Redirected:', response.redirected);
-            console.log('Type:', response.type);
-
-            // Логируем заголовки ответа
-            console.log('Headers:');
-            response.headers.forEach((value, name) => {
-            console.log(`  ${name}: ${value}`);
-            });
-
-    // Возвращаем promise с JSON для дальнейшей обработки
-    return response.json();
-})
+            return response.json();
+        })
         .then(data => {
-            // Логируем преобразованные данные из формата JSON в объект JavaScript
-            console.log('=== RESPONSE JavaScript ===');
-            for (let [key, value] of Object.entries(data)) {
-                console.log(key, value);
-            }
-
+            console.log(data)
             if (data.status === 'success') {
                 const fullUrl = `${API_BASE_URL}${data.url}`;
                 urlInput.value = fullUrl;
 
-                // Сохраняем в localStorage
-                const imageInfo = {
-                    id: Date.now(),
-                    name: data.original_name,
-                    url: data.url,
-                    fullUrl: fullUrl,
-                    filename: data.filename,
-                    size: data.size,
-                    uploadedAt: new Date().toISOString()
-                };
-
-                uploadedImages.push(imageInfo);
-                saveImagesToLocalStorage();
-
                 // Показываем уведомление
                 showNotification('Файл успешно загружен!', 'success');
+
+                // Обновляем список изображений если мы на соответствующей вкладке
+                if (!imagesView.classList.contains('hidden')) {
+                    loadImagesList();
+                }
             } else {
                 uploadError.textContent = data.message;
                 uploadError.classList.remove('hidden');
@@ -199,34 +136,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // Работа с localStorage (читаем из localStorage)
-    function loadImagesFromLocalStorage() {
-        storedImages = localStorage.getItem('uploadedImages')
+   // Загрузка списка изображений с сервера
+function loadImagesList(page = 1) {
+    fetch(`/images-list?page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            displayImagesList(data.images, data.pagination);
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки списка изображений:', error);
+            showNotification('Ошибка загрузки списка изображений', 'error');
+        });
+}
 
-        if (storedImages) {
-            try {
-                uploadedImages = JSON.parse(storedImages);
-                console.log('Загружено изображений:', uploadedImages.length);
-            } catch (e) {
-                console.log('Ошибка при парсинге "uploadedImages"', e);
-                uploadedImages = [];
-            }
-        }
-    }
-
-    function saveImagesToLocalStorage() {
-        localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
-    }
-
-   // Загрузка списка изображений
-function loadImagesList() {
-    // Очищаем контейнер списка изображений перед загрузкой новых данных
-    // Это предотвращает дублирование элементов при повторном вызове функции
+function displayImagesList(images, pagination) {
     imageList.innerHTML = '';
+    currentPage = pagination.page;
+    totalPages = pagination.pages;
 
-    // Проверяем, есть ли загруженные изображения для отображения
-    if (uploadedImages.length === 0) {
-        // Если изображений нет, показываем сообщение о пустом состоянии
+    if (images.length === 0) {
         imageList.innerHTML = `
             <div style="text-align:center; color: var(--text-muted); padding: 40px;">
                 <i class="fas fa-image" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
@@ -234,48 +162,125 @@ function loadImagesList() {
                 <p style="font-size: 14px; margin-top: 8px;">Upload your first image to get started!</p>
             </div>
         `;
-        // Прерываем выполнение функции, так как дальше нечего обрабатывать
         return;
     }
 
-    // Если изображения есть, перебираем массив uploadedImages
-    // Для каждого изображения создаем элемент списка на основе шаблона
-    uploadedImages.forEach(image => {
-        // Клонируем содержимое HTML-шаблона для элемента изображения
-        // cloneNode(true) создает полную копию всех вложенных элементов
+    images.forEach(image => {
         const templateClone = imageItemTemplate.content.cloneNode(true);
-
-        // Находим основной элемент списка в клоне шаблона
         const listItem = templateClone.querySelector('.image-item');
-
-        // Устанавливаем уникальный идентификатор элемента через data-атрибут
         listItem.dataset.id = image.id;
-        console.log('Текущему элементу списка установлен номер:', image.id)
+        listItem.querySelector('.image-item__name span').textContent = image.original_name;
 
-        // Заполняем элемент данными об изображении:
-        // Устанавливаем имя файла в соответствующий элемент
-        listItem.querySelector('.image-item__name span').textContent = image.name;
-        console.log('Элементу номер', image.id, 'установлено имя:', image.name);
-
-        // Находим ссылку на изображение и заполняем её данными
         const urlLink = listItem.querySelector('.image-item__url a');
-        urlLink.href = image.fullUrl; // URL для перехода при клике
-        urlLink.textContent = image.fullUrl; // Текст ссылки
-        urlLink.target = '_blank'; // Открывать ссылку в новой вкладке
-        urlLink.rel = 'noopener noreferrer'; // Защита от уязвимостей безопасности
+        urlLink.href = `${API_BASE_URL}/images/${image.filename}`;
+        urlLink.textContent = `${API_BASE_URL}/images/${image.filename}`;
+        urlLink.target = '_blank';
+        urlLink.rel = 'noopener noreferrer';
 
-        // Создаем элемент для отображения размера файла
+        // Добавляем информацию о размере файла
         const sizeInfo = document.createElement('small');
-        sizeInfo.textContent = ` (${formatFileSize(image.size)})`; // Форматируем размер
-        sizeInfo.style.color = 'var(--text-muted)'; // Используем CSS-переменную для цвета
-        sizeInfo.style.marginLeft = '8px'; // Добавляем отступ слева
-
-        // Добавляем информацию о размере к элементу с именем файла
+        sizeInfo.textContent = ` (${formatFileSize(image.size)})`;
+        sizeInfo.style.color = 'var(--text-muted)';
+        sizeInfo.style.marginLeft = '8px';
         listItem.querySelector('.image-item__name').appendChild(sizeInfo);
 
-        // Добавляем готовый элемент в контейнер списка изображений
+        // Добавляем информацию о дате загрузки
+        const dateInfo = document.createElement('div');
+        dateInfo.className = 'image-item__date';
+        dateInfo.textContent = new Date(image.upload_time).toLocaleString();
+        dateInfo.style.fontSize = '12px';
+        dateInfo.style.color = 'var(--text-muted)';
+        dateInfo.style.marginTop = '4px';
+        listItem.querySelector('.image-item__name').appendChild(dateInfo);
+
+        // Добавляем обработчик удаления
+        const deleteBtn = listItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => deleteImage(image.id));
+
         imageList.appendChild(templateClone);
     });
+
+    // Добавляем пагинацию
+    addPagination();
+}
+
+function addPagination() {
+    const paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination';
+    paginationContainer.style.cssText = `
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+    `;
+
+    // Кнопка "Назад"
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => loadImagesList(currentPage - 1));
+
+    // Информация о странице
+    const pageInfo = document.createElement('span');
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    pageInfo.style.cssText = `
+        padding: 8px 16px;
+        color: var(--text-muted);
+    `;
+
+    // Кнопка "Вперед"
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => loadImagesList(currentPage + 1));
+
+    // Стили для кнопок пагинации
+    const buttonStyle = `
+        padding: 8px 16px;
+        border: 1px solid var(--border-color);
+        background: white;
+        color: var(--primary-blue);
+        cursor: pointer;
+        border-radius: 4px;
+    `;
+
+    const disabledStyle = `
+        opacity: 0.5;
+        cursor: not-allowed;
+    `;
+
+    prevButton.style.cssText = buttonStyle;
+    nextButton.style.cssText = buttonStyle;
+
+    if (prevButton.disabled) prevButton.style.cssText += disabledStyle;
+    if (nextButton.disabled) nextButton.style.cssText += disabledStyle;
+
+    paginationContainer.appendChild(prevButton);
+    paginationContainer.appendChild(pageInfo);
+    paginationContainer.appendChild(nextButton);
+    imageList.appendChild(paginationContainer);
+}
+
+function deleteImage(imageId) {
+    if (confirm('Are you sure you want to delete this image?')) {
+        fetch(`/delete/${imageId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showNotification('Image deleted successfully', 'success');
+                loadImagesList(currentPage);
+            } else {
+                showNotification(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка удаления:', error);
+            showNotification('Error deleting image', 'error');
+        });
+    }
 }
 
     function formatFileSize(bytes) {
@@ -337,23 +342,7 @@ function loadImagesList() {
         }
     });
 
-    imageList.addEventListener('click', (e) => {
-        const deleteButton = e.target.closest('.delete-btn');
-        if (deleteButton) {
-            const listItem = e.target.closest('.image-item');
-            const imageId = parseInt(listItem.dataset.id, 10);
-
-            if (confirm('Are you sure you want to delete this image?')) {
-                uploadedImages = uploadedImages.filter(img => img.id !== imageId);
-                saveImagesToLocalStorage();
-                loadImagesList();
-                showNotification('Image deleted', 'success');
-            }
-        }
-    });
-
     // Инициализация
-    loadImagesFromLocalStorage();
     setRandomHeroImage();
 
     // Проверка соединения с сервером

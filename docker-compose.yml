@@ -5,12 +5,33 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - images_volume:/app/images
-      - logs_volume:/app/logs
+      - ./images:/app/images
+      - ./logs:/app/logs
       - ./static:/app/static
+      - ./backups:/app/backups
     environment:
       - PYTHONUNBUFFERED=1
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=images_db
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    depends_on:
+      - db
     restart: unless-stopped
+    networks:
+      - app_network
+
+  db:
+    image: postgres:13
+    container_name: image_hosting_db
+    environment:
+      - POSTGRES_DB=images_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app_network
 
@@ -20,10 +41,10 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - images_volume:/app/images:ro
       - ./static:/app/static:ro
+      - ./images:/app/images:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - nginx_logs:/var/log/nginx
+      - ./nginx_logs:/var/log/nginx
     depends_on:
       - app
     restart: unless-stopped
@@ -31,9 +52,7 @@ services:
       - app_network
 
 volumes:
-  images_volume:
-    driver: local
-  logs_volume:
+  db_data:
     driver: local
   nginx_logs:
     driver: local
