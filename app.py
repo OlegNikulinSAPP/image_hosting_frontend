@@ -12,11 +12,11 @@ from database import test_connection, get_db_connection, check_table_exists
 from logger_setup import setup_logging
 
 # Конфигурация
-STATIC_FILES_DIR = 'static'
 UPLOAD_DIR = 'images'
+STATIC_FILES_DIR = 'static'
+LOG_DIR = 'logs'
 MAX_FILE_SIZE = 5 * 1024 * 1024
 ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif']
-LOG_DIR = 'logs'
 MAX_IMAGE_DIMENSION = 1200
 
 
