@@ -8,10 +8,8 @@ import io
 from urllib.parse import urlparse, parse_qs
 
 from database import test_connection, get_db_connection, check_table_exists
-# Импортируем настройку логгера из отдельного файла
 from logger_setup import setup_logging
 
-# Конфигурация
 UPLOAD_DIR = 'images'
 STATIC_FILES_DIR = 'static'
 LOG_DIR = 'logs'
@@ -37,7 +35,7 @@ def save_image_metadata(filename, original_name, size, file_type):
             (filename, original_name, size, file_type)
         )
         conn.commit()
-        logging.info(f"Метаданные сохранены в БД: {filename}")
+        logging.info(f"Метаданные сохранены: {filename}")
     except Exception as e:
         logging.error(f"Ошибка сохранения метаданных: {e}")
         raise
@@ -72,7 +70,7 @@ def get_images_list(page=1, per_page=10):
             } for img in images
         ], total_count
     except Exception as e:
-        logging.error(f"Ошибка получения списка изображений: {e}")
+        logging.error(f"Ошибка получения списка: {e}")
         raise
     finally:
         cursor.close()
@@ -84,7 +82,6 @@ def delete_image(image_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        # Получаем информацию об изображении
         cursor.execute("SELECT filename FROM images WHERE id = %s", (image_id,))
         result = cursor.fetchone()
 
@@ -94,11 +91,9 @@ def delete_image(image_id):
         filename = result[0]
         file_path = os.path.join(UPLOAD_DIR, filename)
 
-        # Удаляем из БД
         cursor.execute("DELETE FROM images WHERE id = %s", (image_id,))
         conn.commit()
 
-        # Удаляем файл
         if os.path.exists(file_path):
             os.remove(file_path)
             logging.info(f"Файл удален: {file_path}")
@@ -106,7 +101,7 @@ def delete_image(image_id):
         return True, "Изображение удалено"
     except Exception as e:
         conn.rollback()
-        logging.error(f"Ошибка удаления изображения: {e}")
+        logging.error(f"Ошибка удаления: {e}")
         raise
     finally:
         cursor.close()
@@ -149,6 +144,66 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             self._set_headers(404, 'text/plain')
             self.wfile.write(b"404 Not Found")
 
+    def do_POST(self):
+        """Обрабатывает POST запросы для загрузки файлов"""
+        if self.path != '/upload':
+            self._send_error_response(404, 'Not Found')
+            return
+
+        try:
+            file_data, filename = self._get_and_validate_file()
+            if not file_data:
+                return
+
+            result = self._process_and_save_image(file_data, filename)
+            if result:
+                unique_filename, processed_data = result
+                self._send_success_response(filename, unique_filename, len(processed_data))
+
+        except Exception as e:
+            logging.error(f'Ошибка загрузки: {e}')
+            self._send_error_response(500, 'Ошибка обработки файла')
+
+    def _get_and_validate_file(self):
+        """Получает и валидирует файл из запроса"""
+        content_length = int(self.headers.get('Content-Length', 0))
+        if content_length > MAX_FILE_SIZE:
+            self._send_error_response(400, 'Превышен размер файла')
+            return None, None
+
+        post_data = self.rfile.read(content_length)
+        file_data, filename = self._parse_multipart_data(
+            self.headers.get('Content-Type'),
+            post_data
+        )
+
+        if not file_data or not filename:
+            self._send_error_response(400, 'Файл не найден')
+            return None, None
+
+        file_extension = os.path.splitext(filename)[1].lower()
+        if file_extension not in ALLOWED_EXTENSIONS:
+            self._send_error_response(400, 'Неподдерживаемый формат файла')
+            return None, None
+
+        return file_data, filename
+
+    def _process_and_save_image(self, file_data, filename):
+        """Обрабатывает и сохраняет изображение"""
+        file_extension = os.path.splitext(filename)[1].lower()
+        processed_data = self._process_image(file_data, file_extension)
+
+        unique_filename = f'{uuid.uuid4().hex}{file_extension}'
+        target_path = os.path.join(UPLOAD_DIR, unique_filename)
+
+        with open(target_path, 'wb') as f:
+            f.write(processed_data)
+
+        save_image_metadata(unique_filename, filename, len(processed_data), file_extension[1:])
+        logging.info(f'Изображение сохранено: {filename} -> {unique_filename}')
+
+        return unique_filename, processed_data
+
     def _handle_images_list(self, query_string):
         """Обрабатывает запрос списка изображений"""
         try:
@@ -171,7 +226,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             self._set_headers(200, 'application/json')
             self.wfile.write(json.dumps(response).encode('utf-8'))
         except Exception as e:
-            logging.error(f"Ошибка обработки списка изображений: {e}")
+            logging.error(f"Ошибка списка изображений: {e}")
             self._send_error_response(500, 'Ошибка сервера')
 
     def _handle_delete_image(self, image_id):
@@ -187,7 +242,7 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
 
             self.wfile.write(json.dumps(response).encode('utf-8'))
         except Exception as e:
-            logging.error(f"Ошибка удаления изображения: {e}")
+            logging.error(f"Ошибка удаления: {e}")
             self._send_error_response(500, 'Ошибка сервера')
 
     def _serve_image(self, path):
@@ -214,16 +269,21 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
         }
         return mime_types.get(ext, 'application/octet-stream')
 
-    def _validate_file(self, filename, content_length):
-        """Проверяет валидность файла"""
-        if content_length > MAX_FILE_SIZE:
-            return False, 'Превышен размер файла'
+    def _parse_multipart_data(self, content_type, post_data):
+        """Разбирает multipart/form-data запрос"""
+        boundary = content_type.split('boundary=')[-1]
+        parts = post_data.split(b'--' + boundary.encode())
 
-        file_extension = os.path.splitext(filename)[1].lower()
-        if file_extension not in ALLOWED_EXTENSIONS:
-            return False, 'Неподдерживаемый формат файла'
+        for part in parts:
+            if b'filename="' in part:
+                headers_data, file_content = part.split(b'\r\n\r\n', 1)
+                file_content = file_content.rstrip(b'\r\n--')
 
-        return True, ''
+                file_line = [line for line in headers_data.split(b'\r\n') if b'filename="' in line][0]
+                filename = file_line.decode().split('filename="')[1].split('"')[0]
+
+                return file_content, filename
+        return None, None
 
     def _process_image(self, file_data, file_extension):
         """Обрабатывает изображение с помощью Pillow"""
@@ -250,87 +310,22 @@ class ImageHostingHandler(http.server.BaseHTTPRequestHandler):
             logging.error(f'Ошибка обработки изображения: {e}')
             raise
 
-    def _parse_multipart_data(self, content_type, post_data):
-        """Разбирает multipart/form-data запрос"""
-        boundary = content_type.split('boundary=')[-1]
-        parts = post_data.split(b'--' + boundary.encode())
-
-        for part in parts:
-            if b'filename="' in part:
-                headers_data, file_content = part.split(b'\r\n\r\n', 1)
-                file_content = file_content.rstrip(b'\r\n--')
-
-                file_line = [line for line in headers_data.split(b'\r\n') if b'filename="' in line][0]
-                filename = file_line.decode().split('filename="')[1].split('"')[0]
-
-                return file_content, filename
-        return None, None
-
-    def do_POST(self):
-        """Обрабатывает POST запросы"""
-        if self.path != '/upload':
-            self._set_headers(404, 'text/html')
-            self.wfile.write(b'404 Not Found')
-            return
-
-        content_length = int(self.headers.get('Content-Length', 0))
-
-        if content_length > MAX_FILE_SIZE:
-            self._send_error_response(400, 'Превышен размер файла')
-            return
-
-        try:
-            post_data = self.rfile.read(content_length)
-            file_data, filename = self._parse_multipart_data(
-                self.headers.get('Content-Type'),
-                post_data
-            )
-
-            if not file_data or not filename:
-                self._send_error_response(400, 'Файл не найден')
-                return
-
-            is_valid, error_msg = self._validate_file(filename, content_length)
-            if not is_valid:
-                self._send_error_response(400, error_msg)
-                return
-
-            file_extension = os.path.splitext(filename)[1].lower()
-            processed_data = self._process_image(file_data, file_extension)
-
-            unique_filename = f'{uuid.uuid4().hex}{file_extension}'
-            target_path = os.path.join(UPLOAD_DIR, unique_filename)
-
-            with open(target_path, 'wb') as f:
-                f.write(processed_data)
-
-            # Сохраняем метаданные в БД
-            save_image_metadata(unique_filename, filename, len(processed_data), file_extension[1:])
-
-            file_url = f'/images/{unique_filename}'
-            logging.info(f'Изображение сохранено: {filename} -> {unique_filename}')
-
-            self._send_success_response(filename, unique_filename, file_url, len(processed_data))
-
-        except Exception as e:
-            logging.error(f'Ошибка загрузки: {e}')
-            self._send_error_response(500, 'Ошибка обработки файла')
-
     def _send_error_response(self, status_code, message):
         """Отправляет ответ с ошибкой"""
         self._set_headers(status_code, 'application/json')
         response = {'status': 'error', 'message': message}
         self.wfile.write(json.dumps(response).encode('utf-8'))
 
-    def _send_success_response(self, original_name, filename, url, size):
+    def _send_success_response(self, original_name, filename, size):
         """Отправляет успешный ответ"""
+        file_url = f'/images/{filename}'
         self._set_headers(200, 'application/json')
         response = {
             'status': 'success',
             'message': 'Файл успешно загружен',
             'filename': filename,
             'original_name': original_name,
-            'url': url,
+            'url': file_url,
             'size': size
         }
         self.wfile.write(json.dumps(response).encode('utf-8'))
@@ -356,19 +351,17 @@ def initialize_app():
     """Инициализация приложения: проверяет БД"""
     logging.info("Инициализация приложения...")
 
-    # 1. Тестируем подключение к БД
     if test_connection():
         logging.info("Подключение к базе данных успешно")
 
-        # 2. Проверяем, что таблица создана
         if check_table_exists():
             logging.info("Таблица 'images' существует")
         else:
             logging.error("Таблица 'images' не существует")
             return False
-
     else:
-        logging.info("Не удалось подключиться к базе данных. Проверьте настройки Docker Compose")
+        logging.info("Не удалось подключиться к базе данных")
+        return False
 
     return True
 
